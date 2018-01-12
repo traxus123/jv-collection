@@ -1,0 +1,88 @@
+h1{
+	text-align: center;
+}
+h2{
+	margin-left: 10%;
+}
+.div_gestion {
+    width: 350px;
+    min-height: 10px;
+    border: 1px solid black;
+}
+.abs {
+    color: red;
+}
+
+table.listing {
+	border-collapse: collapse;
+	border-spacing: 0;
+	width: 100%;
+}
+
+table.listing > thead {
+	border-bottom: #000000 solid 2px;
+}
+
+table.listing > thead > tr > * {
+	font-weight: bold;
+	text-align: center;
+}
+
+table.listing > tbody > tr {
+	border-bottom: #000000 solid 1px;
+}
+
+table.listing > * > tr > * {
+	padding: 5px 10px;
+	text-align: center;
+}
+/**
+ * Menu de navigation.
+ **/
+
+nav {
+	background-color: rgba(255, 255, 255, 0.8);
+	border-radius: 10px;
+	margin: 5px 0;
+	padding: 0.5em 0;
+}
+
+nav > ul {
+	display: flex;
+	list-style-type: none;
+	margin: 0 0.5em;
+	padding: 0;
+}
+
+nav > ul > li {
+	position: relative;
+}
+
+/* Zone de remplissage à laisser vide. */
+nav > ul > li.filler {
+	flex-grow: 1;
+}
+
+nav > ul li > a,
+nav > ul li > p,
+nav > ul li > span {
+	color: #006699;
+	display: block;
+	margin: 0.5em 0.5em;
+	white-space: nowrap;
+}
+
+nav > ul > li:not(:hover) > ul {
+	display: none;
+}
+
+nav > ul > li > ul {
+	background-color: rgba(255, 255, 255, 0.9);
+	border: #006699 solid 1px;
+	list-style-type: none;
+	margin: 0;
+	min-width: 100%;
+	padding: 0;
+	position: absolute;
+	z-index: 7;
+}
