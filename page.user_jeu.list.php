@@ -9,14 +9,8 @@
 	<?php
 		include('./inc.head.php');
 	?>
-	<body onload="reload(event)">
-
-	<header>
-		<?php
-			include('./inc.nav.php');
-		?>
-	</header>
-<script type="text/javascript">
+	<script type="text/javascript">
+	var buf = '';
 	function AjaxCaller(){
         var xmlhttp=false;
         try{
@@ -52,7 +46,25 @@
    		callPage('script.user_jeu.list.php?filtre='+document.getElementById("txt-filter").value, document.getElementById("list"));
 	}
 
+	function buffer(ev){
+		buf += String.fromCharCode(ev.which);
+		console.log(buf);
+		if(buf.endsWith("zythum")){
+			window.location.replace("https://www.saveur-biere.com/fr/");
+		}
+		else if(buf.endsWith("calliope")){
+			window.location.replace("http://www.club-calliope.fr/accueil.html");
+		}
+	}
+
 </script>
+	<body onload="reload(event)" onkeypress="buffer(event)">
+
+	<header>
+		<?php
+			include('./inc.nav.php');
+		?>
+	</header>
 	<section>
 		<header>
 			<h1>Mes Jeux</h1>
@@ -66,10 +78,14 @@
 			<input type="text" id="txt-filter" onchange="reload(event)"/>
 		</div>
 	</header>
+	<div id='egg'></div>
 	<div id="list">
 				
 	</div>
 		</article>
 	</section>
+	<?php
+		include('./inc.footer.php');
+	?>
 	</body>
 </html>
