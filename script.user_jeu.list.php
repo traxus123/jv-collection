@@ -3,7 +3,6 @@
 	require('./model/user.php');
 	require('./model/console.php');
 	require('./model/jeu.php');
-	require('./model/user_Jeu.php');
 ?>
 	<table class="listing column-1-center column-2-center column-4-center">
 		<thead>
@@ -22,7 +21,7 @@
 		</thead>
 		<tbody>
 			<?php
-				foreach (User_Jeu::select_contains_orderbyname($user->id, $_GET['filtre']) as $index => $row) {
+				foreach (Jeu::u_select_contains_orderbyname($user->id, $_GET['filtre']) as $index => $row) {
 					echo '<tr>';
 					echo '<td>' . $row['nom'] . '</td>';
 					echo '<td>' . Console::select($row['id_console'])['nom'] . '</td>';

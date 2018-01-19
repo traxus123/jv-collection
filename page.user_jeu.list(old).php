@@ -3,7 +3,6 @@
 	require('./model/user.php');
 	require('./model/console.php');
 	require('./model/jeu.php');
-	require('./model/user_Jeu.php');
 ?>
 <html>
 	<?php
@@ -48,7 +47,7 @@
 		</thead>
 		<tbody>
 			<?php
-				foreach (User_Jeu::select_orderbyname($user->id) as $index => $row) {
+				foreach (Jeu::u_select_orderbyname($user->id) as $index => $row) {
 					echo '<tr>';
 					echo '<td>' . $row['nom'] . '</td>';
 					echo '<td>' . Console::select($row['id_console'])['nom'] . '</td>';

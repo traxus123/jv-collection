@@ -3,14 +3,27 @@
 	require('./model/user.php');
 	require('./model/console.php');
 	require('./model/jeu.php');
-	require('./model/user_Jeu.php');
 ?>
 <html>
+	
+<?php
+	include('./inc.head.php');
+?>
+	
+<body onload="reload(event)" onkeypress="buffer(event)">
+
+<header>
 	<?php
-		include('./inc.head.php');
+		include('./inc.banner.php');
+
+		include('./inc.nav.php');
 	?>
-	<script type="text/javascript">
+</header>
+		
+<script type="text/javascript">
+	
 	var buf = '';
+
 	function AjaxCaller(){
         var xmlhttp=false;
         try{
@@ -58,13 +71,6 @@
 	}
 
 </script>
-	<body onload="reload(event)" onkeypress="buffer(event)">
-
-	<header>
-		<?php
-			include('./inc.nav.php');
-		?>
-	</header>
 	<section>
 		<header>
 			<h1>Mes Jeux</h1>
@@ -77,11 +83,10 @@
 			Filtre :
 			<input type="text" id="txt-filter" onchange="reload(event)"/>
 		</div>
-	</header>
-	<div id='egg'></div>
-	<div id="list">
+		<div id='egg'></div>
+		<div id="list">
 				
-	</div>
+		</div>
 		</article>
 	</section>
 	<?php

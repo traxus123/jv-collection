@@ -1,7 +1,7 @@
 <?php
 	require('./model/pdo.php');
 	require('./model/user.php');
-	require('./model/user_Console.php');
+	require('./model/console.php');
 ?>
 	<table class="listing column-1-center column-2-center column-4-center">
 		<thead>
@@ -19,7 +19,7 @@
 		</thead>
 		<tbody>
 			<?php
-				foreach (User_Console::select_contains_orderbyname($user->id, $_GET['filtre']) as $index => $row) {
+				foreach (Console::u_select_contains_orderbyname($user->id, $_GET['filtre']) as $index => $row) {
 					echo '<tr>';
 					echo '<td>' . $row['nom'] . '</td>';
 					echo '<td>' . $row['model'] . '</td>';

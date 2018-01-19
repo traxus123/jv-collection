@@ -2,7 +2,6 @@
 	require('./model/pdo.php');
 	require('./model/console.php');
 	require('./model/jeu.php');
-	require('./model/user_jeu.php');
 	require('./model/user.php');
 
 	$post_check = true;
@@ -14,7 +13,7 @@
 		}
 		*/
 		if ($post_check) {
-			$return = User_Jeu::update($_GET['id'], $user->id, $_POST['Etat']);
+			$return = Jeu::u_update($_GET['id'], $user->id, $_POST['Etat']);
 
 			/* Mise à jour correctement effectuée, on redirige vers la page de l'article. */
 			header('Location: ./list-jeu-utilisateur.html');
@@ -45,7 +44,7 @@
 
 	<?php
 		echo '<form action="./modifier-user_jeu-' . $_GET['id'] . '.html" method="post">';
-		$jeu = new User_Jeu(User_Jeu::select($_GET['id']));
+		$jeu = new Jeu(Jeu::u_select($_GET['id']));
 	?>
 		<table class="table-form">
 			<tbody>
@@ -56,7 +55,7 @@
 							if (count($_POST) > 0) {
 								echo '<input name="Etat" placeholder="Entrez un Etat." style="width: 100%;" type="text" value="' . $_POST['Etat'] . '" />';
 							} else {
-								echo '<input name="Etat" placeholder="Entrez un Etat." style="width: 100%;" type="text" value="' . $jeu->etat() . '" />';
+								echo '<input name="Etat" placeholder="Entrez un Etat." style="width: 100%;" type="text" value="' . $jeu->u_etat() . '" />';
 							}
 						?>
 					</td>

@@ -45,7 +45,7 @@
 		</thead>
 		<tbody>
 			<?php
-				foreach (User_Console::select_orderbyname($user->id) as $index => $row) {
+				foreach (Console::u_select_orderbyname($user->id) as $index => $row) {
 					echo '<tr>';
 					echo '<td>' . $row['nom'] . '</td>';
 					echo '<td>' . $row['model'] . '</td>';

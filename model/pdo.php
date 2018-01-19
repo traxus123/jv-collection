@@ -7,6 +7,13 @@ $bdd_dbname = 'jv';
 $bdd_user = 'root';
 $bdd_pwd = 'root';
 
+if(true){
+	$bdd_host = 'rebprojesxroot.mysql.db';
+	$bdd_dbname = 'rebprojesxroot';
+	$bdd_user = 'rebprojesxroot';
+	$bdd_pwd = 'Th77re75';
+}
+
 try {
     $strConnection = 'mysql:host=' . $bdd_host . ';dbname=' . $bdd_dbname;
     $arrExtraParam= array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8");

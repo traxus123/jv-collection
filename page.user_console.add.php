@@ -1,7 +1,6 @@
 <?php
 	require('./model/pdo.php');
 	require('./model/console.php');
-	require('./model/user_console.php');
 	require('./model/user.php');
 	if (count($_POST) > 0) {
 		/* Vérification des données saisies. */
@@ -14,7 +13,7 @@
 		if ($post_check) {
 			/* Insertion du jeu. */
 
-			$return = User_Console::insert($user->id, $_POST['Console'], $_POST['Etat']);
+			$return = Console::u_insert($user->id, $_POST['Console'], $_POST['Etat']);
 			header('Location: ./list-console-utilisateur.html');
 		}
 	}

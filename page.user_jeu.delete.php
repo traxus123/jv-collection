@@ -2,7 +2,6 @@
 	require('./model/pdo.php');
 	require('./model/console.php');
 	require('./model/jeu.php');
-	require('./model/user_jeu.php');
 	require('./model/user.php');
 
 	if (!isset($_GET['id'])) {
@@ -16,7 +15,7 @@
 
 	if (isset($_POST['delete'])) {
 		if (is_numeric($id)) {
-			$return = User_Jeu::delete($id);
+			$return = Jeu::u_delete($id);
 		}
 		else {
 			//$error = new CalliopeError(CalliopeError::CODE_DEFAULT_KO, 'Erreur lors de la suppression du jeu', '<p>Argument ID non numérique.</p>');
@@ -51,7 +50,7 @@
 	</header>
 
 	<?php
-		$row = User_jeu::select_c($id);
+		$row = jeu::u_select_c($id);
 
 		echo '<form action="./supprimer-user_jeu-' . $id . '.html" method="post">';
 		echo '<input name="delete" type="hidden" value="true" />';

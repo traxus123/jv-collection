@@ -2,7 +2,6 @@
 	require('./model/pdo.php');
 	require('./model/console.php');
 	require('./model/jeu.php');
-	require('./model/user_jeu.php');
 	require('./model/user.php');
 	if (count($_POST) > 0) {
 		/* Vérification des données saisies. */
@@ -15,7 +14,7 @@
 		if ($post_check) {
 			/* Insertion du jeu. */
 
-			$return = User_Jeu::insert($user->id, $_POST['Jeu'], $_POST['Etat']);
+			$return = Jeu::u_insert($user->id, $_POST['Jeu'], $_POST['Etat']);
 			header('Location: ./list-jeu-utilisateur.html');
 		}
 	}
