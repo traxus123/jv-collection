@@ -13,7 +13,7 @@
 		if ($post_check) {
 			/* Insertion du jeu. */
 
-			$return = Console::insert($_POST['Nom'], $_POST['Model'], $_POST['Constructeur'], $_POST['Annee'], $_POST['Prix'], $_POST['Description']);
+			$return = Console::insert($_POST['Nom'], $_POST['Model'], $_POST['Constructeur'], $_POST['Annee'], $_POST['Prix'], $_POST['Description'], ' ');
 			header('Location: ./list-console.html');
 		}
 	}

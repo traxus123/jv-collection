@@ -25,7 +25,7 @@
 					echo '<td>' . $row['model'] . '</td>';
 					echo '<td>' . $row['constructeur'] . '</td>';
 					echo '<td>' . $row['annee'] . '</td>';
-					echo '<td>' . $row['prix'] . '</td>';
+					echo '<td>' . $row['prix'] . '€</td>';
 					echo '<td>' . $row['description'] . '</td>';
 					echo '<td>' . $row['etat'] . '</td>';
 					echo '<td><a class="icon icon-edit" href="./modifier-user_console-' . $row['uid'] . '.html" title="Modifier la console."></a></td>';

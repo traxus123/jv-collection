@@ -28,7 +28,7 @@
 					echo '<td>' . $row['genre'] . '</td>';
 					echo '<td>' . $row['developpeur'] . '</td>';
 					echo '<td>' . $row['editeur'] . '</td>';
-					echo '<td>' . $row['prix'] . '</td>';
+					echo '<td>' . $row['prix'] . '€</td>';
 					echo '<td>' . $row['description'] . '</td>';
 					echo '<td>' . $row['etat'] . '</td>';
 					echo '<td><a class="icon icon-edit" href="./modifier-user_jeu-' . $row['uid'] . '.html" title="Modifier le jeu."></a></td>';

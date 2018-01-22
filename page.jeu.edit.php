@@ -13,7 +13,7 @@
 		}
 		*/
 		if ($post_check) {
-			$return = Jeu::update($_GET['id'], $_POST['Console'], $_POST['Nom'], $_POST['Genre'], $_POST['Developpeur'], $_POST['Editeur'], $_POST['Annee'], $_POST['Prix'], $_POST['Description']);
+			$return = Jeu::update($_GET['id'], $_POST['Console'], $_POST['Nom'], $_POST['Genre'], $_POST['Developpeur'], $_POST['Editeur'], $_POST['Annee'], $_POST['Prix'], $_POST['Description'], $_POST['Image']);
 
 			/* Mise à jour correctement effectuée, on redirige vers la page de l'article. */
 			header('Location: ./list-jeu.html');
@@ -202,6 +202,25 @@
 						<?php
 							if ((count($_POST) > 0) && (trim($_POST['Description']) == '')) {
 								echo '<span class="error">* La Description doit être renseigné.</span>';
+							}
+						?>
+					</td>
+				</tr>
+				<tr>
+					<td>Image d'un jeu :</td>
+					<td>
+						<?php
+							if (count($_POST) > 0) {
+								echo '<input name="Image" placeholder="Entrez une Image." style="width: 100%;" type="text" value="' . $_POST['Image'] . '" />';
+							} else {
+								echo '<input name="Image" placeholder="Entrez une Image." style="width: 100%;" type="text" value="' . $jeu->image() . '" />';
+							}
+						?>
+					</td>
+					<td>
+						<?php
+							if ((count($_POST) > 0) && (trim($_POST['Image']) == '')) {
+								echo '<span class="error">* L\'Image doit être renseigné.</span>';
 							}
 						?>
 					</td>

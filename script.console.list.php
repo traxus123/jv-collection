@@ -1,6 +1,7 @@
 <table class="listing column-1-center column-2-center column-4-center">
 		<thead>
 			<tr>
+				<td>Image</td>
 				<td>Nom</td>
 				<td>Model</td>
 				<td>Constructeur</td>
@@ -20,16 +21,18 @@
 		$console = new Console($row);
 
 		echo '<tr>';
+		echo '<td><img height="50px" src="' . $console->image() . '"></td>';
 		echo '<td>' . $console->nom() . '</td>';
 		echo '<td>' . $console->model() . '</td>';
 		echo '<td>' . $console->constructeur() . '</td>';
 		echo '<td>' . $console->annee() . '</td>';
-		echo '<td>' . $console->prix() . '</td>';
+		echo '<td>' . $console->prix() . '€</td>';
 		echo '<td>' . $console->description() . '</td>';
 		echo '<td><a class="icon icon-edit" href="./modifier-console-' . $console->id() . '.html" title="Modifier la console."></a></td>';
 		echo '<td><a class="icon icon-delete" href="./supprimer-console-' . $console->id() . '.html" title="Supprimer la console."></a></td>';
 		echo '</tr>';
 	}
 ?>
+
 </tbody>
 	</table>

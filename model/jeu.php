@@ -29,6 +29,7 @@ class Jeu {
 	public function annee () {return $this->row['annee'];}
 	public function prix () {return $this->row['prix'];}
 	public function description () {return $this->row['description'];}
+	public function image () {return $this->row['Image'];}
 
 
 	public function u_id () {return $this->row['id'];}
@@ -40,10 +41,10 @@ class Jeu {
 	 * Fonctions statiques.
 	 **/
 
-	public static function insert ($id_console, $nom, $genre, $developpeur, $editeur, $annee, $prix, $description) {
+	public static function insert ($id_console, $nom, $genre, $developpeur, $editeur, $annee, $prix, $description, $image) {
 		global $pdo;
 
-		$stmt = $pdo->prepare('insert into jeu (id_console, nom, genre, developpeur, editeur, annee, prix, description) values (:id_console, :nom, :genre, :developpeur, :editeur, :annee, :prix, :description);');
+		$stmt = $pdo->prepare('insert into jeu (id_console, nom, genre, developpeur, editeur, annee, prix, description, Image) values (:id_console, :nom, :genre, :developpeur, :editeur, :annee, :prix, :description, :image);');
 		$stmt->bindValue(':id_console', $id_console, PDO::PARAM_STR);
 		$stmt->bindValue(':nom', $nom, PDO::PARAM_STR);
 		$stmt->bindValue(':genre', $genre, PDO::PARAM_STR);
@@ -52,6 +53,7 @@ class Jeu {
 		$stmt->bindValue(':annee', $annee);
 		$stmt->bindValue(':prix', $prix, PDO::PARAM_INT);
 		$stmt->bindValue(':description', $description, PDO::PARAM_STR);
+		$stmt->bindValue(':image', $image, PDO::PARAM_STR);
 
 		try {
 			$stmt->execute();
@@ -115,10 +117,10 @@ class Jeu {
 		return $data;
 	}
 
-	public static function update ($id, $id_console, $nom, $genre, $developpeur, $editeur, $annee, $prix, $description) {
+	public static function update ($id, $id_console, $nom, $genre, $developpeur, $editeur, $annee, $prix, $description, $image) {
 		global $pdo;
 
-		$stmt = $pdo->prepare('update jeu set id_console = :id_console, nom = :nom, genre = :genre, developpeur = :developpeur, editeur = :editeur, annee = :annee, prix = :prix, description = :description where id = :id;');
+		$stmt = $pdo->prepare('update jeu set id_console = :id_console, nom = :nom, genre = :genre, developpeur = :developpeur, editeur = :editeur, annee = :annee, prix = :prix, description = :description, Image = :imagewhere id = :id;');
 
 		$stmt->bindValue(':id_console', $id_console, PDO::PARAM_STR);
 		$stmt->bindValue(':nom', $nom, PDO::PARAM_STR);
@@ -128,6 +130,7 @@ class Jeu {
 		$stmt->bindValue(':annee', $annee);
 		$stmt->bindValue(':prix', $prix, PDO::PARAM_INT);
 		$stmt->bindValue(':description', $description, PDO::PARAM_STR);
+		$stmt->bindValue(':image', $image, PDO::PARAM_STR);
 
 		try {
 			$stmt->execute();

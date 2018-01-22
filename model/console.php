@@ -25,6 +25,7 @@ class Console {
 	public function annee () {return $this->row['annee'];}
 	public function prix () {return $this->row['prix'];}
 	public function description () {return $this->row['description'];}
+	public function image () {return $this->row['Image'];}
 
 	public function u_id () {return $this->row['id'];}
 	public function u_id_user () {return $this->row['id_user'];}
@@ -35,16 +36,17 @@ class Console {
 	 * Fonctions statiques.
 	 **/
 
-	public static function insert ($nom, $model, $constructeur, $annee, $prix, $description) {
+	public static function insert ($nom, $model, $constructeur, $annee, $prix, $description, $image) {
 		global $pdo;
 
-		$stmt = $pdo->prepare('insert into console (nom, model, constructeur, annee, prix, description) values (:nom, :model, :constructeur, :annee, :prix, :description);');
+		$stmt = $pdo->prepare('insert into console (nom, model, constructeur, annee, prix, description, Image) values (:nom, :model, :constructeur, :annee, :prix, :description, :image);');
 		$stmt->bindValue(':nom', $nom, PDO::PARAM_STR);
 		$stmt->bindValue(':model', $model, PDO::PARAM_STR);
 		$stmt->bindValue(':constructeur', $constructeur, PDO::PARAM_STR);
 		$stmt->bindValue(':annee', $annee);
 		$stmt->bindValue(':prix', $prix, PDO::PARAM_INT);
 		$stmt->bindValue(':description', $description, PDO::PARAM_STR);
+		$stmt->bindValue(':image', $image, PDO::PARAM_STR);
 
 		try {
 			$stmt->execute();
@@ -122,10 +124,10 @@ class Console {
 		return $data;
 	}
 	
-	public static function update ($id, $nom, $model, $constructeur, $annee, $prix, $description) {
+	public static function update ($id, $nom, $model, $constructeur, $annee, $prix, $description, $image) {
 		global $pdo;
 
-		$stmt = $pdo->prepare('update console set nom = :nom, model = :model, constructeur = :constructeur, annee = :annee, prix = :prix, description = :description where id = :id;');
+		$stmt = $pdo->prepare('update console set nom = :nom, model = :model, constructeur = :constructeur, annee = :annee, prix = :prix, description = :description, Image = :image where id = :id;');
 
 		$stmt->bindParam(':id', $id, PDO::PARAM_INT);
 		$stmt->bindParam(':nom', $nom, PDO::PARAM_STR);
@@ -134,6 +136,7 @@ class Console {
 		$stmt->bindParam(':annee', $annee);
 		$stmt->bindParam(':prix', $prix, PDO::PARAM_INT);
 		$stmt->bindParam(':description', $description, PDO::PARAM_STR);
+		$stmt->bindParam(':image', $image, PDO::PARAM_STR);
 
 		try {
 			$stmt->execute();

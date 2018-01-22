@@ -12,7 +12,7 @@
 		}
 		*/
 		if ($post_check) {
-			$return = Console::update($_GET['id'], $_POST['Nom'], $_POST['Model'], $_POST['Constructeur'], $_POST['Annee'], $_POST['Prix'], $_POST['Description']);
+			$return = Console::update($_GET['id'], $_POST['Nom'], $_POST['Model'], $_POST['Constructeur'], $_POST['Annee'], $_POST['Prix'], $_POST['Description'], $_POST['Image']);
 
 			/* Mise à jour correctement effectuée, on redirige vers la page de l'article. */
 			header('Location: ./list-console.html');
@@ -157,6 +157,25 @@
 						<?php
 							if ((count($_POST) > 0) && (trim($_POST['Description']) == '')) {
 								echo '<span class="error">* La Description doit être renseigné.</span>';
+							}
+						?>
+					</td>
+				</tr>
+				<tr>
+					<td>Image d'une console :</td>
+					<td>
+						<?php
+							if (count($_POST) > 0) {
+								echo '<input name="Image" placeholder="Entrez une Image." style="width: 100%;" type="text" value="' . $_POST['Image'] . '" />';
+							} else {
+								echo '<input name="Image" placeholder="Entrez une Image." style="width: 100%;" type="text" value="' . $console->image() . '" />';
+							}
+						?>
+					</td>
+					<td>
+						<?php
+							if ((count($_POST) > 0) && (trim($_POST['Image']) == '')) {
+								echo '<span class="error">* L\'Image doit être renseigné.</span>';
 							}
 						?>
 					</td>
