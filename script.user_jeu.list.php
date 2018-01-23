@@ -7,6 +7,7 @@
 	<table class="listing column-1-center column-2-center column-4-center">
 		<thead>
 			<tr>
+				<td>Image</td>
 				<td>Nom</td>
 				<td>Console</td>
 				<td>Genre</td>
@@ -23,6 +24,7 @@
 			<?php
 				foreach (Jeu::u_select_contains_orderbyname($user->id, $_GET['filtre']) as $index => $row) {
 					echo '<tr>';
+					echo '<td><img height="50px" src="' . $row['image'] . '"></td>';
 					echo '<td>' . $row['nom'] . '</td>';
 					echo '<td>' . Console::select($row['id_console'])['nom'] . '</td>';
 					echo '<td>' . $row['genre'] . '</td>';

@@ -7,7 +7,7 @@ $bdd_dbname = 'jv';
 $bdd_user = 'root';
 $bdd_pwd = 'root';
 
-if(false){
+if(true){
 	$bdd_host = 'rebprojesxroot.mysql.db';
 	$bdd_dbname = 'rebprojesxroot';
 	$bdd_user = 'rebprojesxroot';

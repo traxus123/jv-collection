@@ -6,6 +6,7 @@
 	<table class="listing column-1-center column-2-center column-4-center">
 		<thead>
 			<tr>
+				<td>Image</td>
 				<td>Nom</td>
 				<td>Model</td>
 				<td>Constructeur</td>
@@ -21,6 +22,7 @@
 			<?php
 				foreach (Console::u_select_contains_orderbyname($user->id, $_GET['filtre']) as $index => $row) {
 					echo '<tr>';
+					echo '<td><img height="50px" src="' . $row['image'] . '"></td>';
 					echo '<td>' . $row['nom'] . '</td>';
 					echo '<td>' . $row['model'] . '</td>';
 					echo '<td>' . $row['constructeur'] . '</td>';
