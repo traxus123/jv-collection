@@ -2,6 +2,7 @@
 	require('./model/pdo.php');
 	require('./model/user.php');
 	include('./model/jeu.php');
+	include('./model/console.php');
 	if (count($_POST) > 0) {
 		/* Vérification des données saisies. */
 		$post_check = true;
@@ -30,7 +31,7 @@
 	include('./inc.head.php');
 ?>
 
-<body>
+<body onload="GetList(event)">
 
 <header>
 	<?php
@@ -38,7 +39,57 @@
 		include('./inc.nav.php');
 	?>
 </header>
+<script type="text/javascript">
+	function AjaxCaller(){
+        var xmlhttp=false;
+        try{
+            xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+        }catch(e){
+            try{
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }catch(E){
+                xmlhttp = false;
+            }
+        }
 
+        if(!xmlhttp && typeof XMLHttpRequest!='undefined'){
+            xmlhttp = new XMLHttpRequest();
+        }
+        return xmlhttp;
+    }
+
+    function callPage(url, div){
+        ajax=AjaxCaller(); 
+        ajax.open("GET", url, true); 
+        ajax.onreadystatechange=function(){
+            if(ajax.readyState==4){
+                if(ajax.status==200){
+                    div.innerHTML = ajax.responseText;
+                }
+            }
+        }
+        ajax.send(null);
+    }
+
+	function GetList(ev) {
+   		callPage('script.jeu.add.list.php?Nom='+document.getElementById("Nom").value+'&Console='+document.getElementById("Console").value+'&Genre='+document.getElementById("Genre").value+'&Developpeur='+document.getElementById("Developpeur").value+'&Editeur='+document.getElementById("Editeur").value+'&Annee='+document.getElementById("Annee").value, document.getElementById("list"));
+	}
+
+	function LoadList(ev){
+		console.log(ev.target.id.split('_')[2]);
+
+		document.getElementById("Nom").value = document.getElementById("s_nom_"+ev.target.id.split('_')[2]).innerHTML;
+		document.getElementById("Console").value = document.getElementById("s_console_"+ev.target.id.split('_')[2]).className;
+		document.getElementById("Genre").value = document.getElementById("s_genre_"+ev.target.id.split('_')[2]).innerHTML;
+		document.getElementById("Developpeur").value = document.getElementById("s_developpeur_"+ev.target.id.split('_')[2]).innerHTML;
+		document.getElementById("Editeur").value = document.getElementById("s_editeur_"+ev.target.id.split('_')[2]).innerHTML;
+		document.getElementById("Annee").value = document.getElementById("s_annee_"+ev.target.id.split('_')[2]).innerHTML;
+		document.getElementById("Prix").value = document.getElementById("s_prix_"+ev.target.id.split('_')[2]).innerHTML;
+		document.getElementById("Description").value = document.getElementById("s_description_"+ev.target.id.split('_')[2]).innerHTML;
+
+	}
+
+</script>
 <section>
 	<header>
 		<h1>Ajouter un jeu</h1>
@@ -52,9 +103,9 @@
 					<td>
 						<?php
 							if (count($_POST) > 0) {
-								echo '<input name="Nom" placeholder="Entrez un Nom." style="width: 100%;" type="text" value="' . $_POST['Nom'] . '" />';
+								echo '<input name="Nom" id="Nom" onchange="GetList(event)" placeholder="Entrez un Nom." style="width: 100%;" type="text" value="' . $_POST['Nom'] . '" />';
 							} else {
-								echo '<input name="Nom" placeholder="Entrez un Nom." style="width: 100%;" type="text" />';
+								echo '<input name="Nom" id="Nom" onchange="GetList(event)" placeholder="Entrez un Nom." style="width: 100%;" type="text" />';
 							}
 						?>
 					</td>
@@ -70,9 +121,8 @@
 					<td>Console du jeu:</td>
 					<td>
 						<?php
-							include('./model/console.php');
 							$row2 = Console::select_d_orderbyname ();
-							echo '<select name="Console">';
+							echo '<select id="Console" onchange="GetList(event)" name="Console">';
 							foreach ($row2 as $key => $value) {	
 								echo '<option value="' . $value['id'] . '">' . $value['nom'] . '</option>';
 							}
@@ -92,9 +142,9 @@
 					<td>
 						<?php
 							if (count($_POST) > 0) {
-								echo '<input name="Genre" placeholder="Entrez un Genre." style="width: 100%;" type="text" value="' . $_POST['Genre'] . '" />';
+								echo '<input name="Genre" id="Genre" onchange="GetList(event)" placeholder="Entrez un Genre." style="width: 100%;" type="text" value="' . $_POST['Genre'] . '" />';
 							} else {
-								echo '<input name="Genre" placeholder="Entrez un Genre." style="width: 100%;" type="text" />';
+								echo '<input name="Genre" id="Genre" onchange="GetList(event)" placeholder="Entrez un Genre." style="width: 100%;" type="text" />';
 							}
 						?>
 					</td>
@@ -111,9 +161,9 @@
 					<td>
 						<?php
 							if (count($_POST) > 0) {
-								echo '<input name="Developpeur" placeholder="Entrez un Developpeur." style="width: 100%;" type="text" value="' . $_POST['Developpeur'] . '" />';
+								echo '<input name="Developpeur" id="Developpeur" onchange="GetList(event)" placeholder="Entrez un Developpeur." style="width: 100%;" type="text" value="' . $_POST['Developpeur'] . '" />';
 							} else {
-								echo '<input name="Developpeur" placeholder="Entrez un Developpeur." style="width: 100%;" type="text" />';
+								echo '<input name="Developpeur" id="Developpeur" onchange="GetList(event)" placeholder="Entrez un Developpeur." style="width: 100%;" type="text" />';
 							}
 						?>
 					</td>
@@ -130,9 +180,9 @@
 					<td>
 						<?php
 							if (count($_POST) > 0) {
-								echo '<input name="Editeur" placeholder="Entrez un Editeur." style="width: 100%;" type="text" value="' . $_POST['Editeur'] . '" />';
+								echo '<input name="Editeur" id="Editeur" onchange="GetList(event)" placeholder="Entrez un Editeur." style="width: 100%;" type="text" value="' . $_POST['Editeur'] . '" />';
 							} else {
-								echo '<input name="Editeur" placeholder="Entrez un Editeur." style="width: 100%;" type="text" />';
+								echo '<input name="Editeur" id="Editeur" onchange="GetList(event)" placeholder="Entrez un Editeur." style="width: 100%;" type="text" />';
 							}
 						?>
 					</td>
@@ -149,9 +199,9 @@
 					<td>
 						<?php
 							if (count($_POST) > 0) {
-								echo '<input name="Annee" placeholder="Entrez un Annee." style="width: 100%;" type="text" value="' . $_POST['Annee'] . '" />';
+								echo '<input name="Annee" id="Annee" onchange="GetList(event)" placeholder="Entrez un Annee." style="width: 100%;" type="text" value="' . $_POST['Annee'] . '" />';
 							} else {
-								echo '<input name="Annee" placeholder="Entrez un Annee." style="width: 100%;" type="text" />';
+								echo '<input name="Annee" id="Annee" onchange="GetList(event)" placeholder="Entrez un Annee." style="width: 100%;" type="text" />';
 							}
 						?>
 					</td>
@@ -168,9 +218,9 @@
 					<td>
 						<?php
 							if (count($_POST) > 0) {
-								echo '<input name="Prix" placeholder="Entrez un Prix." style="width: 100%;" type="text" value="' . $_POST['Prix'] . '" />';
+								echo '<input name="Prix" id="Prix" placeholder="Entrez un Prix." style="width: 100%;" type="text" value="' . $_POST['Prix'] . '" />';
 							} else {
-								echo '<input name="Prix" placeholder="Entrez un Prix." style="width: 100%;" type="text" />';
+								echo '<input name="Prix" id="Prix" placeholder="Entrez un Prix." style="width: 100%;" type="text" />';
 							}
 						?>
 					</td>
@@ -187,9 +237,9 @@
 					<td>
 						<?php
 							if (count($_POST) > 0) {
-								echo '<input name="Description" placeholder="Entrez un Description." style="width: 100%;" type="text" value="' . $_POST['Description'] . '" />';
+								echo '<input name="Description" id="Description" placeholder="Entrez un Description." style="width: 100%;" type="text" value="' . $_POST['Description'] . '" />';
 							} else {
-								echo '<input name="Description" placeholder="Entrez un Description." style="width: 100%;" type="text" />';
+								echo '<input name="Description" id="Description" placeholder="Entrez un Description." style="width: 100%;" type="text" />';
 							}
 						?>
 					</td>
@@ -205,6 +255,9 @@
 		</table>
 
 		<center><input type="submit" value="Envoyer" /></center>
+		<div id="list">
+
+		</div>
 	</form>
 </section>
 

@@ -128,6 +128,19 @@ class Console {
 		return $data;
 	}
 
+	public static function select_name_d_orderbyname ($id) {
+		global $pdo;
+
+		$stmt = $pdo->prepare('select nom from console where id = :id and games = 1 order by nom, model;');
+		$stmt->bindValue(':id', $id, PDO::PARAM_INT);
+		$stmt->execute();
+		$data = $stmt->fetch();
+		$stmt->closeCursor();
+		unset($stmt);
+
+		return $data;
+	}
+
 	public static function delete ($id) {
 		global $pdo;
 

@@ -105,6 +105,25 @@ class Jeu {
 		
 		return $data;
 	}
+
+	public static function select_filters_orderbyname($nom, $console, $genre, $developpeur, $editeur, $annee){
+		global $pdo;
+
+		$stmt = $pdo->prepare('select * from jeu where nom like :nom and id_console like :console and genre like :genre and developpeur like :developpeur and editeur like :editeur and annee like :annee order by nom, id_console;');
+		$stmt->bindValue(':nom','%'.$nom.'%', PDO::PARAM_STR);
+		$stmt->bindValue(':console','%'.$console.'%', PDO::PARAM_STR);
+		$stmt->bindValue(':genre','%'.$genre.'%', PDO::PARAM_STR);
+		$stmt->bindValue(':developpeur','%'.$developpeur.'%', PDO::PARAM_STR);
+		$stmt->bindValue(':editeur','%'.$editeur.'%', PDO::PARAM_STR);
+		$stmt->bindValue(':annee','%'.$annee.'%');
+		$stmt->execute();
+		$data = $stmt->fetchALL();
+		$stmt->closeCursor();
+		unset($stmt);
+		
+		return $data;
+	}
+
 	public static function delete ($id) {
 		global $pdo;
 
@@ -198,6 +217,24 @@ class Jeu {
 		$stmt->bindValue(':user', $user, PDO::PARAM_INT);
 		$stmt->execute();
 		$data = $stmt->fetchALL();
+		$stmt->closeCursor();
+		unset($stmt);
+
+		return $data;
+	}
+
+	public static function u_select_name_model_const_date ($console, $nom, $genre, $developpeur, $editeur, $annee) {
+		global $pdo;
+
+		$stmt = $pdo->prepare('select * from jeu where id_console = :console and nom = :nom and genre = :genre and developpeur = :developpeur and editeur = :editeur and annee = :annee limit 1;');
+		$stmt->bindValue(':console', $console);
+		$stmt->bindValue(':nom', $nom, PDO::PARAM_STR);
+		$stmt->bindValue(':genre', $genre, PDO::PARAM_STR);
+		$stmt->bindValue(':developpeur', $developpeur, PDO::PARAM_STR);
+		$stmt->bindValue(':editeur', $editeur, PDO::PARAM_STR);
+		$stmt->bindValue(':annee', $annee);
+		$stmt->execute();
+		$data = $stmt->fetch();
 		$stmt->closeCursor();
 		unset($stmt);
 
