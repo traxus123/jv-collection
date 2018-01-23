@@ -62,11 +62,18 @@
 	function buffer(ev){
 		buf += String.fromCharCode(ev.which);
 		console.log(buf);
+		console.log(buf.length);
+		if(buf.length > 10){
+			buf = buf.slice(-10);
+		}
 		if(buf.endsWith("zythum")){
 			window.location.replace("https://www.saveur-biere.com/fr/");
 		}
 		else if(buf.endsWith("calliope")){
 			window.location.replace("http://www.club-calliope.fr/accueil.html");
+		}
+		else if(buf.endsWith("discord")){
+			document.getElementById("egg").innerHTML = '<img src="https://vignette.wikia.nocookie.net/villains/images/7/76/Discord_the_Spirit_of_Disharmony.jpg/revision/latest/scale-to-width-down/2000?cb=20160922220025">'
 		}
 	}
 
