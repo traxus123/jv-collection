@@ -100,6 +100,22 @@ class Console {
 		return $data;
 	}
 
+	public static function select_filters_orderbyname($nom, $model, $constructeur, $annee){
+		global $pdo;
+
+		$stmt = $pdo->prepare('select * from console where nom like :nom and model like :model and constructeur like :constructeur and annee like :annee order by nom, model;');
+		$stmt->bindValue(':nom','%'.$nom.'%', PDO::PARAM_STR);
+		$stmt->bindValue(':model','%'.$model.'%', PDO::PARAM_STR);
+		$stmt->bindValue(':constructeur','%'.$constructeur.'%', PDO::PARAM_STR);
+		$stmt->bindValue(':annee','%'.$annee.'%');
+		$stmt->execute();
+		$data = $stmt->fetchALL();
+		$stmt->closeCursor();
+		unset($stmt);
+		
+		return $data;
+	}
+
 	public static function select_d_orderbyname () {
 		global $pdo;
 
@@ -178,6 +194,22 @@ class Console {
 
 		$stmt = $pdo->prepare('select * from user_console where ID = :id limit 1;');
 		$stmt->bindValue(':id', $id, PDO::PARAM_INT);
+		$stmt->execute();
+		$data = $stmt->fetch();
+		$stmt->closeCursor();
+		unset($stmt);
+
+		return $data;
+	}
+
+	public static function u_select_name_model_const_date ($nom, $model, $constructeur, $annee) {
+		global $pdo;
+
+		$stmt = $pdo->prepare('select * from console where nom = :nom and model = :model and constructeur = :constructeur and annee = :annee limit 1;');
+		$stmt->bindValue(':nom', $nom, PDO::PARAM_STR);
+		$stmt->bindValue(':model', $model, PDO::PARAM_STR);
+		$stmt->bindValue(':constructeur', $constructeur, PDO::PARAM_STR);
+		$stmt->bindValue(':annee', $annee);
 		$stmt->execute();
 		$data = $stmt->fetch();
 		$stmt->closeCursor();

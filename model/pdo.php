@@ -59,4 +59,6 @@ function dateToSQL ($str) {
 	return $str[2] . '-' . $str[1] . '-' . $str[0];
 }
 
+ error_reporting(E_ALL);   // Activer le rapport d'erreurs PHP
+
 ?>

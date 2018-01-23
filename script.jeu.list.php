@@ -28,7 +28,7 @@
 					$console = Console::select($jeu->id_console());
 
 					echo '<tr>';
-					echo '<td><img height="50px" src="' . $Jeu->image() . '"></td>';
+					echo '<td><img height="50px" src="' . $jeu->image() . '"></td>';
 					echo '<td>' . $jeu->nom() . '</td>';
 					echo '<td>' . $console['nom'] . '</td>';
 					echo '<td>' . $jeu->genre() . '</td>';

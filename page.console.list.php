@@ -70,7 +70,7 @@
 			<input type="text" id="txt-filter" onchange="reload(event)"/>
 		</div>
 	</header>
-	<div id="list">
+	<div class="half" id="list">
 				
 	</div>
 </section>
