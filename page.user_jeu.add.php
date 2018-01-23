@@ -6,11 +6,26 @@
 	if (count($_POST) > 0) {
 		/* Vérification des données saisies. */
 		$post_check = true;
-		/*
+		
+		if (trim($_POST['Console']) == '') {
+			$post_check = false;
+		}
 		if (trim($_POST['Nom']) == '') {
 			$post_check = false;
 		}
-		*/
+		if (trim($_POST['Genre']) == '') {
+			$post_check = false;
+		}
+		if (trim($_POST['Developpeur']) == '') {
+			$post_check = false;
+		}
+		if (trim($_POST['Editeur']) == '') {
+			$post_check = false;
+		}
+		if (trim($_POST['Annee']) == '') {
+			$post_check = false;
+		}
+
 		if ($post_check) {
 			/* Insertion du jeu. */
 			$jeu = jeu::u_select_name_model_const_date($_POST['Console'], $_POST['Nom'], $_POST['Genre'], $_POST['Developpeur'], $_POST['Editeur'], $_POST['Annee']);
@@ -21,7 +36,13 @@
 				$json = json_encode($xml);
 				$array = json_decode($json,TRUE);
 
-				$return = Jeu::insert($_POST['Console'], $_POST['Nom'], $_POST['Genre'], $_POST['Developpeur'], $_POST['Editeur'], $_POST['Annee'], $_POST['Prix'], $_POST['Description'], 'http://thegamesdb.net/banners/'.$array['Game'][0]['Images']['boxart'][1]);				$jeu = Console::u_select_name_model_const_date($_POST['Console'], $_POST['Nom'], $_POST['Genre'], $_POST['Developpeur'], $_POST['Editeur'], $_POST['Annee']);
+				if ($array['Game'][0]['Images']['boxart'][1] != ''){
+					$return = Jeu::insert($_POST['Console'], $_POST['Nom'], $_POST['Genre'], $_POST['Developpeur'], $_POST['Editeur'], $_POST['Annee'], $_POST['Prix'], $_POST['Description'], 'http://thegamesdb.net/banners/'.$array['Game'][0]['Images']['boxart'][1]);
+				}
+				else{
+					$return = Jeu::insert($_POST['Console'], $_POST['Nom'], $_POST['Genre'], $_POST['Developpeur'], $_POST['Editeur'], $_POST['Annee'], $_POST['Prix'], $_POST['Description'], '');
+				}				
+				$jeu = jeu::u_select_name_model_const_date($_POST['Console'], $_POST['Nom'], $_POST['Genre'], $_POST['Developpeur'], $_POST['Editeur'], $_POST['Annee']);
 				$return = Console::u_insert($user->id, $jeu['id'], $_POST['Etat']);
 			}
 			else{
@@ -88,14 +109,14 @@
 	function LoadList(ev){
 		console.log(ev.target.id.split('_')[2]);
 
-		document.getElementById("Nom").value = document.getElementById("s_nom_"+ev.target.id.split('_')[2]).innerHTML;
-		document.getElementById("Console").value = document.getElementById("s_console_"+ev.target.id.split('_')[2]).className;
-		document.getElementById("Genre").value = document.getElementById("s_genre_"+ev.target.id.split('_')[2]).innerHTML;
-		document.getElementById("Developpeur").value = document.getElementById("s_developpeur_"+ev.target.id.split('_')[2]).innerHTML;
-		document.getElementById("Editeur").value = document.getElementById("s_editeur_"+ev.target.id.split('_')[2]).innerHTML;
-		document.getElementById("Annee").value = document.getElementById("s_annee_"+ev.target.id.split('_')[2]).innerHTML;
-		document.getElementById("Prix").value = document.getElementById("s_prix_"+ev.target.id.split('_')[2]).innerHTML;
-		document.getElementById("Description").value = document.getElementById("s_description_"+ev.target.id.split('_')[2]).innerHTML;
+		document.getElementById("Nom").value = document.getElementById("s_nom_"+ev.target.parentElement.parentElement.id.split('_')[2]).innerHTML;
+		document.getElementById("Console").value = document.getElementById("s_console_"+ev.target.parentElement.parentElement.id.split('_')[2]).className;
+		document.getElementById("Genre").value = document.getElementById("s_genre_"+ev.target.parentElement.parentElement.id.split('_')[2]).innerHTML;
+		document.getElementById("Developpeur").value = document.getElementById("s_developpeur_"+ev.target.parentElement.parentElement.id.split('_')[2]).innerHTML;
+		document.getElementById("Editeur").value = document.getElementById("s_editeur_"+ev.target.parentElement.parentElement.id.split('_')[2]).innerHTML;
+		document.getElementById("Annee").value = document.getElementById("s_annee_"+ev.target.parentElement.parentElement.id.split('_')[2]).innerHTML;
+		document.getElementById("Prix").value = document.getElementById("s_prix_"+ev.target.parentElement.parentElement.id.split('_')[2]).innerHTML;
+		document.getElementById("Description").value = document.getElementById("s_description_"+ev.target.parentElement.parentElement.id.split('_')[2]).innerHTML;
 
 	}
 
@@ -284,10 +305,10 @@
 		</table>
 
 		<center><input type="submit" value="Envoyer" /></center>
-		<div id="list">
-
-		</div>
 	</form>
+	<div id="list">
+
+	</div>
 </section>
 
 <?php

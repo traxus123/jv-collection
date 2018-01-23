@@ -21,7 +21,12 @@
 		$console = new Console($row);
 
 		echo '<tr>';
-		echo '<td><img height="50px" src="' . $console->image() . '"></td>';
+		if($console->image() != ''){
+			echo '<td><img height="50px" src="' . $console->image() . '"></td>';
+		}
+		else {
+			echo '<td></td>';
+		}
 		echo '<td>' . $console->nom() . '</td>';
 		echo '<td>' . $console->model() . '</td>';
 		echo '<td>' . $console->constructeur() . '</td>';

@@ -5,11 +5,20 @@
 	if (count($_POST) > 0) {
 		/* Vérification des données saisies. */
 		$post_check = true;
-		/*
+		
 		if (trim($_POST['Nom']) == '') {
 			$post_check = false;
 		}
-		*/
+		if (trim($_POST['Model']) == '') {
+			$post_check = false;
+		}
+		if (trim($_POST['Constructeur']) == '') {
+			$post_check = false;
+		}
+		if (trim($_POST['Annee']) == '') {
+			$post_check = false;
+		}
+
 		if ($post_check) {
 			$console = Console::u_select_name_model_const_date($_POST['Nom'], $_POST['Model'], $_POST['Constructeur'], $_POST['Annee']);
 			if($console == null){
@@ -78,14 +87,14 @@
 	}
 
 	function LoadList(ev){
-		console.log(ev.target.id.split('_')[2]);
+		console.log(ev.target.parentElement.parentElement.id.split('_')[2]);
 
-		document.getElementById("Nom").value = document.getElementById("s_nom_"+ev.target.id.split('_')[2]).innerHTML
-		document.getElementById("Model").value = document.getElementById("s_model_"+ev.target.id.split('_')[2]).innerHTML
-		document.getElementById("Constructeur").value = document.getElementById("s_constructeur_"+ev.target.id.split('_')[2]).innerHTML
-		document.getElementById("Annee").value = document.getElementById("s_annee_"+ev.target.id.split('_')[2]).innerHTML
-		document.getElementById("Prix").value = document.getElementById("s_prix_"+ev.target.id.split('_')[2]).innerHTML
-		document.getElementById("Description").value = document.getElementById("s_description_"+ev.target.id.split('_')[2]).innerHTML
+		document.getElementById("Nom").value = document.getElementById("s_nom_"+ev.target.parentElement.parentElement.id.split('_')[2]).innerHTML
+		document.getElementById("Model").value = document.getElementById("s_model_"+ev.target.parentElement.parentElement.id.split('_')[2]).innerHTML
+		document.getElementById("Constructeur").value = document.getElementById("s_constructeur_"+ev.target.parentElement.parentElement.id.split('_')[2]).innerHTML
+		document.getElementById("Annee").value = document.getElementById("s_annee_"+ev.target.parentElement.parentElement.id.split('_')[2]).innerHTML
+		document.getElementById("Prix").value = document.getElementById("s_prix_"+ev.target.parentElement.parentElement.id.split('_')[2]).innerHTML
+		document.getElementById("Description").value = document.getElementById("s_description_"+ev.target.parentElement.parentElement.id.split('_')[2]).innerHTML
 
 	}
 
@@ -235,10 +244,10 @@
 		</table>
 
 		<center><input type="submit" value="Envoyer" /></center>
-		<div id="list">
-
-		</div>
 	</form>
+	<div id="list">
+
+	</div>
 </section>
 
 <?php

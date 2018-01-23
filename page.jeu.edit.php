@@ -175,7 +175,7 @@
 							if (count($_POST) > 0) {
 								echo '<input name="Prix" placeholder="Entrez un Prix." style="width: 100%;" type="text" value="' . $_POST['Prix'] . '" />';
 							} else {
-								echo '<input name="Prix" placeholder="Entrez un Prix." style="width: 100%;" type="text" value="' . $console->prix() . '" />';
+								echo '<input name="Prix" placeholder="Entrez un Prix." style="width: 100%;" type="text" value="' . $jeu->prix() . '" />';
 							}
 						?>
 					</td>

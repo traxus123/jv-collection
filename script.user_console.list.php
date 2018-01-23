@@ -22,7 +22,12 @@
 			<?php
 				foreach (Console::u_select_contains_orderbyname($user->id, $_GET['filtre']) as $index => $row) {
 					echo '<tr>';
-					echo '<td><img height="50px" src="' . $row['image'] . '"></td>';
+					if($row['Image'] != ''){
+						echo '<td><img height="50px" src="' . $row['Image'] . '"></td>';
+					}
+					else {
+						echo '<td></td>';
+					}
 					echo '<td>' . $row['nom'] . '</td>';
 					echo '<td>' . $row['model'] . '</td>';
 					echo '<td>' . $row['constructeur'] . '</td>';

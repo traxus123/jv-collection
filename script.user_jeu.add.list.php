@@ -15,6 +15,7 @@
 				<td>Annee</td>
 				<td>Prix</td>
 				<td>Description</td>
+				<td></td>
 			</tr>
 		</thead>
 		<tbody>
@@ -24,7 +25,7 @@
 					$jeu = new Jeu($row);
 					$console = Console::select($jeu->id_console());
 
-					echo '<tr id="click_on_'.$jeu->id().'" ondblclick="LoadList(event)">';
+					echo '<tr id="click_on_'.$jeu->id().'">';
 					echo '<td id="s_nom_'.$jeu->id().'">' . $jeu->nom() . '</td>';
 					echo '<td id="s_console_'.$jeu->id().'" class="'.$jeu->id_console().'">' . $console['nom'] . '</td>';
 					echo '<td id="s_genre_'.$jeu->id().'">' . $jeu->genre() . '</td>';
@@ -33,6 +34,7 @@
 					echo '<td id="s_annee_'.$jeu->id().'">' . $jeu->annee() . '</td>';
 					echo '<td id="s_prix_'.$jeu->id().'">' . $jeu->prix() . '€</td>';
 					echo '<td id="s_description_'.$jeu->id().'">' . $jeu->description() . '</td>';
+					echo '<td> <button onclick="LoadList(event)">Select</button></td>';
 					echo '</tr>';
 				}
 			?>
