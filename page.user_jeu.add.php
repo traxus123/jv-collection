@@ -3,6 +3,7 @@
 	require('./model/console.php');
 	require('./model/jeu.php');
 	require('./model/user.php');
+	require('./model/menu.php');
 	if (count($_POST) > 0) {
 		/* Vérification des données saisies. */
 		$post_check = true;
@@ -14,20 +15,39 @@
 			$post_check = false;
 		}
 		if (trim($_POST['Genre']) == '') {
-			$post_check = false;
+			if(isset($_POST['NGenre'])){
+				$return = menu::insert(1, $_POST['NGenre']);
+				$_POST['Genre'] = $_POST['NGenre'];
+			}
+			else{
+				$post_check = false;
+			}
 		}
 		if (trim($_POST['Developpeur']) == '') {
-			$post_check = false;
+			if(isset($_POST['NDeveloppeur'])){
+				$return = menu::insert(2, $_POST['NDeveloppeur']);
+				$_POST['Developpeur'] = $_POST['NDeveloppeur'];
+			}
+			else{
+				$post_check = false;
+			}
 		}
 		if (trim($_POST['Editeur']) == '') {
-			$post_check = false;
+			if(isset($_POST['NEditeur'])){
+				$return = menu::insert(3, $_POST['NEditeur']);
+				$_POST['Editeur'] = $_POST['NEditeur'];
+			}
+			else{
+				$post_check = false;
+			}
 		}
 		if (trim($_POST['Annee']) == '') {
 			$post_check = false;
 		}
 
 		if ($post_check) {
-			/* Insertion du jeu. */
+			/* Insertion du jeu. */ 
+
 			$jeu = jeu::u_select_name_model_const_date($_POST['Console'], $_POST['Nom'], $_POST['Genre'], $_POST['Developpeur'], $_POST['Editeur'], $_POST['Annee']);
 			if($jeu == null){
 				
@@ -43,7 +63,7 @@
 					$return = Jeu::insert($_POST['Console'], $_POST['Nom'], $_POST['Genre'], $_POST['Developpeur'], $_POST['Editeur'], $_POST['Annee'], $_POST['Prix'], $_POST['Description'], '');
 				}				
 				$jeu = jeu::u_select_name_model_const_date($_POST['Console'], $_POST['Nom'], $_POST['Genre'], $_POST['Developpeur'], $_POST['Editeur'], $_POST['Annee']);
-				$return = Console::u_insert($user->id, $jeu['id'], $_POST['Etat']);
+				$return = jeu::u_insert($user->id, $jeu['id'], $_POST['Etat']);
 			}
 			else{
 				$xml = simplexml_load_string(file_get_contents("http://thegamesdb.net/api/GetGame.php?name=".$_POST['Nom']), "SimpleXMLElement", LIBXML_NOCDATA);
@@ -103,7 +123,12 @@
     }
 
 	function GetList(ev) {
-   		callPage('script.user_jeu.add.list.php?Nom='+document.getElementById("Nom").value+'&Console='+document.getElementById("Console").value+'&Genre='+document.getElementById("Genre").value+'&Developpeur='+document.getElementById("Developpeur").value+'&Editeur='+document.getElementById("Editeur").value+'&Annee='+document.getElementById("Annee").value, document.getElementById("list"));
+		if(document.getElementById("Genre")){
+			callPage('script.user_jeu.add.list.php?Nom='+document.getElementById("Nom").value+'&Console='+document.getElementById("Console").value+'&Genre='+document.getElementById("Genre").value+'&Developpeur='+document.getElementById("Developpeur").value+'&Editeur='+document.getElementById("Editeur").value+'&Annee='+document.getElementById("Annee").value, document.getElementById("list"));
+		}
+		else{
+   			callPage('script.user_jeu.add.list.php?Nom='+document.getElementById("Nom").value+'&Console='+document.getElementById("Console").value+'&Genre='+document.getElementById("NGenre").value+'&Developpeur='+document.getElementById("Developpeur").value+'&Editeur='+document.getElementById("Editeur").value+'&Annee='+document.getElementById("Annee").value, document.getElementById("list"));
+   		}
 	}
 
 	function LoadList(ev){
@@ -117,7 +142,39 @@
 		document.getElementById("Annee").value = document.getElementById("s_annee_"+ev.target.parentElement.parentElement.id.split('_')[2]).innerHTML;
 		document.getElementById("Prix").value = document.getElementById("s_prix_"+ev.target.parentElement.parentElement.id.split('_')[2]).innerHTML;
 		document.getElementById("Description").value = document.getElementById("s_description_"+ev.target.parentElement.parentElement.id.split('_')[2]).innerHTML;
+		document.getElementById('GenreIsNull').innerHTML = '';
+		document.getElementById('DeveloppeurIsNull').innerHTML = '';
+		document.getElementById('EditeurIsNull').innerHTML = '';
+	}
 
+	function Gchecknull(ev){
+		if(document.getElementById('Genre').value == "") {
+    		console.log('ok');
+    		document.getElementById('GenreIsNull').innerHTML = '<input name="NGenre" id="Genre" onchange="GetList(event)" placeholder="Entrez un Genre." style="width: 100%;" type="text" />';
+    	}
+    	else{
+    		document.getElementById('GenreIsNull').innerHTML = '';
+    	}
+	}
+
+	function Dchecknull(ev){
+		if(document.getElementById('Developpeur').value == "") {
+    		console.log('ok');
+    		document.getElementById('DeveloppeurIsNull').innerHTML = '<input name="NDeveloppeur" id="Developpeur" onchange="GetList(event)" placeholder="Entrez un Developpeur." style="width: 100%;" type="text" />';
+    	}
+    	else{
+    		document.getElementById('DeveloppeurIsNull').innerHTML = '';
+    	}
+	}
+
+	function Echecknull(ev){
+		if(document.getElementById('Editeur').value == "") {
+    		console.log('ok');
+    		document.getElementById('EditeurIsNull').innerHTML = '<input name="NEditeur" id="Editeur" onchange="GetList(event)" placeholder="Entrez un Editeur." style="width: 100%;" type="text" />';
+    	}
+    	else{
+    		document.getElementById('EditeurIsNull').innerHTML = '';
+    	}
 	}
 
 </script>
@@ -173,9 +230,23 @@
 					<td>
 						<?php
 							if (count($_POST) > 0) {
-								echo '<input name="Genre" id="Genre" onchange="GetList(event)" placeholder="Entrez un Genre." style="width: 100%;" type="text" value="' . $_POST['Genre'] . '" />';
+								$row2 = Menu::select_type(1);
+								echo '<select name="Genre" onchange="Gchecknull(event)" id="Genre">';
+								echo '<option value=""> --- </option>';
+								foreach ($row2 as $key => $value) {	
+									echo '<option value="' . $value['nom'] . '">' . $value['nom'] . '</option>';
+								}
+								echo '</select>';
+								echo '<div id="GenreIsNull"></div>';
 							} else {
-								echo '<input name="Genre" id="Genre" onchange="GetList(event)" placeholder="Entrez un Genre." style="width: 100%;" type="text" />';
+								$row2 = Menu::select_type(1);
+								echo '<select name="Genre" onchange="Gchecknull(event)" id="Genre">';
+								foreach ($row2 as $key => $value) {	
+									echo '<option value="' . $value['nom'] . '">' . $value['nom'] . '</option>';
+								}
+								echo '<option value=""> --- </option>';
+								echo '</select>';
+								echo '<div id="GenreIsNull"></div>';
 							}
 						?>
 					</td>
@@ -192,9 +263,23 @@
 					<td>
 						<?php
 							if (count($_POST) > 0) {
-								echo '<input name="Developpeur" id="Developpeur" onchange="GetList(event)" placeholder="Entrez un Developpeur." style="width: 100%;" type="text" value="' . $_POST['Developpeur'] . '" />';
+								$row2 = Menu::select_type(2);
+								echo '<select name="Developpeur" onchange="Dchecknull(event)" id="Developpeur">';
+								echo '<option value=""> --- </option>';
+								foreach ($row2 as $key => $value) {	
+									echo '<option value="' . $value['nom'] . '">' . $value['nom'] . '</option>';
+								}
+								echo '</select>';
+								echo '<div id="DeveloppeurIsNull"></div>';
 							} else {
-								echo '<input name="Developpeur" id="Developpeur" onchange="GetList(event)" placeholder="Entrez un Developpeur." style="width: 100%;" type="text" />';
+								$row2 = Menu::select_type(2);
+								echo '<select name="Developpeur" onchange="Dchecknull(event)" id="Developpeur">';
+								foreach ($row2 as $key => $value) {	
+									echo '<option value="' . $value['nom'] . '">' . $value['nom'] . '</option>';
+								}
+								echo '<option value=""> --- </option>';
+								echo '</select>';
+								echo '<div id="DeveloppeurIsNull"></div>';
 							}
 						?>
 					</td>
@@ -208,12 +293,27 @@
 				</tr>
 				<tr>
 					<td>Editeur du jeu :</td>
+
 					<td>
 						<?php
 							if (count($_POST) > 0) {
-								echo '<input name="Editeur" id="Editeur" onchange="GetList(event)" placeholder="Entrez un Editeur." style="width: 100%;" type="text" value="' . $_POST['Editeur'] . '" />';
+								$row2 = Menu::select_type(3);
+								echo '<select name="Editeur" onchange="Echecknull(event)" id="Editeur">';
+								echo '<option value=""> --- </option>';
+								foreach ($row2 as $key => $value) {	
+									echo '<option value="' . $value['nom'] . '">' . $value['nom'] . '</option>';
+								}
+								echo '</select>';
+								echo '<div id="EditeurIsNull"></div>';
 							} else {
-								echo '<input name="Editeur" id="Editeur" onchange="GetList(event)" placeholder="Entrez un Editeur." style="width: 100%;" type="text" />';
+								$row2 = Menu::select_type(3);
+								echo '<select name="Editeur" onchange="Echecknull(event)" id="Editeur">';
+								foreach ($row2 as $key => $value) {	
+									echo '<option value="' . $value['nom'] . '">' . $value['nom'] . '</option>';
+								}
+								echo '<option value=""> --- </option>';
+								echo '</select>';
+								echo '<div id="EditeurIsNull"></div>';
 							}
 						?>
 					</td>

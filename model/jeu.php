@@ -139,7 +139,7 @@ class Jeu {
 	public static function update ($id, $id_console, $nom, $genre, $developpeur, $editeur, $annee, $prix, $description, $image) {
 		global $pdo;
 
-		$stmt = $pdo->prepare('update jeu set id_console = :id_console, nom = :nom, genre = :genre, developpeur = :developpeur, editeur = :editeur, annee = :annee, prix = :prix, description = :description, Image = :imagewhere id = :id;');
+		$stmt = $pdo->prepare('update jeu set id_console = :id_console, nom = :nom, genre = :genre, developpeur = :developpeur, editeur = :editeur, annee = :annee, prix = :prix, description = :description, Image = :image where id = :id;');
 
 		$stmt->bindValue(':id_console', $id_console, PDO::PARAM_STR);
 		$stmt->bindValue(':nom', $nom, PDO::PARAM_STR);

@@ -71,14 +71,15 @@
 					<td>Console d'un jeu :</td>
 					<td>
 						<?php
-							$row2 = Console::select_orderbyname ();
-							echo '<select name="Console">';
+
+							$row2 = Console::select_d_orderbyname ();
+							echo '<select id="Console" onchange="GetList(event)" name="Console">';
 							foreach ($row2 as $key => $value) {	
-								if($value['id'] == $jeu->id_console()){
-									echo '<option value="' . $value['id'] . '" selected="selected">' . $value['Nom'] . '</option>';
+								if($value['id'] == $jeu->id_console()){	
+									echo '<option value="' . $value['id'] . '" selected="selected">' . $value['nom'] . '</option>';
 								}
 								else{
-									echo '<option value="' . $value['id'] . '">' . $value['Nom'] . '</option>';
+									echo '<option value="' . $value['id'] . '">' . $value['nom'] . '</option>';
 								}
 							}
 							echo '</select>'

@@ -2,6 +2,7 @@
 	require('./model/pdo.php');
 	require('./model/console.php');
 	require('./model/user.php');
+	require('./model/menu.php');
 	if (count($_POST) > 0) {
 		/* Vérification des données saisies. */
 		$post_check = true;
@@ -13,7 +14,13 @@
 			$post_check = false;
 		}
 		if (trim($_POST['Constructeur']) == '') {
-			$post_check = false;
+			if(isset($_POST['NConstructeur'])){
+				$return = menu::insert(4, $_POST['NConstructeur']);
+				$_POST['Constructeur'] = $_POST['NConstructeur'];
+			}
+			else{
+				$post_check = false;
+			}
 		}
 		if (trim($_POST['Annee']) == '') {
 			$post_check = false;
@@ -83,7 +90,12 @@
     }
 
 	function GetList(ev) {
-   		callPage('script.user_console.add.list.php?Nom='+document.getElementById("Nom").value+'&Model='+document.getElementById("Model").value+'&Constructeur='+document.getElementById("Constructeur").value+'&Annee='+document.getElementById("Annee").value, document.getElementById("list"));
+		if(document.getElementById("Constructeur")){
+   			callPage('script.user_console.add.list.php?Nom='+document.getElementById("Nom").value+'&Model='+document.getElementById("Model").value+'&Constructeur='+document.getElementById("Constructeur").value+'&Annee='+document.getElementById("Annee").value, document.getElementById("list"));
+   		}
+   		else{
+   			callPage('script.user_console.add.list.php?Nom='+document.getElementById("Nom").value+'&Model='+document.getElementById("Model").value+'&Constructeur='+document.getElementById("NConstructeur").value+'&Annee='+document.getElementById("Annee").value, document.getElementById("list"));
+   		}
 	}
 
 	function LoadList(ev){
@@ -96,6 +108,17 @@
 		document.getElementById("Prix").value = document.getElementById("s_prix_"+ev.target.parentElement.parentElement.id.split('_')[2]).innerHTML
 		document.getElementById("Description").value = document.getElementById("s_description_"+ev.target.parentElement.parentElement.id.split('_')[2]).innerHTML
 
+		document.getElementById('ConstructeurIsNull').innerHTML = '';
+	}
+
+	function Cchecknull(ev){
+		if(document.getElementById('Constructeur').value == "") {
+    		console.log('ok');
+    		document.getElementById('ConstructeurIsNull').innerHTML = '<input name="NConstructeur" id="Constructeur" onchange="GetList(event)" placeholder="Entrez un Constructeur." style="width: 100%;" type="text" />';
+    	}
+    	else{
+    		document.getElementById('ConstructeurIsNull').innerHTML = '';
+    	}
 	}
 
 </script>
@@ -147,12 +170,27 @@
 				</tr>
 				<tr>
 					<td>Constructeur de la console :</td>
+
 					<td>
 						<?php
 							if (count($_POST) > 0) {
-								echo '<input name="Constructeur" id="Constructeur" onchange="GetList(event)" placeholder="Entrez un Constructeur." style="width: 100%;" type="text" value="' . $_POST['Constructeur'] . '" />';
+								$row2 = Menu::select_type(4);
+								echo '<select name="Constructeur" onchange="Cchecknull(event)" id="Constructeur">';
+								echo '<option value=""> --- </option>';
+								foreach ($row2 as $key => $value) {	
+									echo '<option value="' . $value['nom'] . '">' . $value['nom'] . '</option>';
+								}
+								echo '</select>';
+								echo '<div id="ConstructeurIsNull"></div>';
 							} else {
-								echo '<input name="Constructeur" id="Constructeur" onchange="GetList(event)" placeholder="Entrez un Constructeur." style="width: 100%;" type="text" />';
+								$row2 = Menu::select_type(4);
+								echo '<select name="Constructeur" onchange="Cchecknull(event)" id="Constructeur">';
+								foreach ($row2 as $key => $value) {	
+									echo '<option value="' . $value['nom'] . '">' . $value['nom'] . '</option>';
+								}
+								echo '<option value=""> --- </option>';
+								echo '</select>';
+								echo '<div id="ConstructeurIsNull"></div>';
 							}
 						?>
 					</td>
