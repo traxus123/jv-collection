@@ -182,7 +182,7 @@
 	<header>
 		<h1>Ajouter un jeu a ma collection</h1>
 	</header>
-
+	<div class="table-form">
 	<form action="./ajouter-user_jeu.html" method="post">
 		<table class="table-form">
 			<tbody>
@@ -406,7 +406,8 @@
 
 		<center><input type="submit" value="Envoyer" /></center>
 	</form>
-	<div id="list">
+	</div>
+	<div id="list" class="addContener">
 
 	</div>
 </section>

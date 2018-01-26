@@ -65,6 +65,32 @@ class JVUser {
 		return $this->droit > 0;
 	}
 
+	public static function select ($id) {
+		global $pdo;
+
+		$stmt = $pdo->prepare('select pseudo from utilisateur where ID = :id limit 1;');
+		$stmt->bindValue(':id', $id, PDO::PARAM_INT);
+		$stmt->execute();
+		$data = $stmt->fetch();
+		$stmt->closeCursor();
+		unset($stmt);
+
+		return $data;
+	}
+
+	public static function select_contains_orderbyname ($filtre) {
+		global $pdo;
+
+		$stmt = $pdo->prepare('select id, pseudo from utilisateur where pseudo like :filtre order by pseudo;');
+		$stmt->bindValue(':filtre','%'.$filtre.'%', PDO::PARAM_STR);
+		$stmt->execute();
+		$data = $stmt->fetchALL();
+		$stmt->closeCursor();
+		unset($stmt);
+
+		return $data;
+	}
+
 	function load ($email, $pwd) {
 		global $pdo;
 		global $_SESSION;

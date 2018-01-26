@@ -1,6 +1,7 @@
 <nav>
 	<ul>
 		<li><a href="./accueil.html">Accueil</a></li>
+		<li><a href="./list-collection-utilisateur.html">Collections</a></li>
 		<?php
 			if ($user->isLogged()) {
 				echo '<li><a href="./list-console-utilisateur.html">Mes Consoles</a></li>';

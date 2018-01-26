@@ -126,9 +126,9 @@
 	<header>
 		<h1>Ajouter une console a ma collection</h1>
 	</header>
-
-	<form action="./ajouter-user_console.html" method="post">
-		<table class="table-form">
+	<div class="table-form">
+	<form action="./ajouter-user_console.html" method="post" class="table-form">
+		<table>
 			<tbody>
 				<tr>
 					<td>Nom de la console :</td>
@@ -281,9 +281,10 @@
 			</tbody>
 		</table>
 
-		<center><input type="submit" value="Envoyer" /></center>
+		<input type="submit" value="Envoyer" />
 	</form>
-	<div id="list">
+	</div>
+	<div id="list" class="addContener">
 
 	</div>
 </section>
