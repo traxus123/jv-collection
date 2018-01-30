@@ -78,10 +78,37 @@ class JVUser {
 		return $data;
 	}
 
+	public static function check_email ($id, $email) {
+		global $pdo;
+
+		$stmt = $pdo->prepare('select count(*) line_count from utilisateur where email = :email and id <> :id');
+		$stmt->bindValue(':email', $email, PDO::PARAM_STR);
+		$stmt->bindValue(':id', $id, PDO::PARAM_INT);
+		$stmt->execute();
+		$row = $stmt->fetch();
+		$stmt->closeCursor();
+		unset($stmt);
+
+		return ($row['line_count'] <= 0);
+	}
+
+	public static function select_hash ($id) {
+		global $pdo;
+
+		$stmt = $pdo->prepare('select mdp from utilisateur where id = :id limit 1');
+		$stmt->bindValue(':id', $id, PDO::PARAM_INT);
+		$stmt->execute();
+		$row = $stmt->fetch();
+		$stmt->closeCursor();
+		unset($stmt);
+
+		return $row['mdp'];
+	}
+
 	public static function select_contains_orderbyname ($filtre) {
 		global $pdo;
 
-		$stmt = $pdo->prepare('select id, pseudo from utilisateur where pseudo like :filtre order by pseudo;');
+		$stmt = $pdo->prepare('select id, pseudo, private from utilisateur where pseudo like :filtre order by pseudo;');
 		$stmt->bindValue(':filtre','%'.$filtre.'%', PDO::PARAM_STR);
 		$stmt->execute();
 		$data = $stmt->fetchALL();
@@ -89,6 +116,24 @@ class JVUser {
 		unset($stmt);
 
 		return $data;
+	}
+
+	public static function set_privacy($user, $private){
+				global $pdo;
+
+		$stmt = $pdo->prepare('update user set private = :private where id = :user;');
+		$stmt->bindValue(':private', $private, PDO::PARAM_INT);
+		$stmt->bindValue(':user', $user, PDO::PARAM_INT);
+
+		try {
+			$stmt->execute();
+			$stmt->closeCursor();
+			unset($stmt);
+		} catch (PDOException $exception) {
+			return $exception;
+		}
+
+		return true;
 	}
 
 	function load ($email, $pwd) {
@@ -120,6 +165,7 @@ class JVUser {
 				$this->email = $row['email'];
 				$this->droit = $row['droit'];
 				$this->description = $row['description'];
+				$this->private = $row['private'];
 
 				$_SESSION['user'] = $this;
 				session_commit();
@@ -127,6 +173,49 @@ class JVUser {
 				return 0;
 			}
 		}
+	}
+
+	public static function update_profil ($id, $email, $pseudo, $description, $private){
+		global $pdo;
+
+		$stmt = $pdo->prepare('update utilisateur set email = :email, pseudo = :pseudo, description = :description , private = :private where id = :id;');
+		$stmt->bindValue(':pseudo', $pseudo, PDO::PARAM_STR);
+		$stmt->bindValue(':description', $description, PDO::PARAM_STR);
+		$stmt->bindValue(':email', $email, PDO::PARAM_STR);
+		$stmt->bindValue(':private', $private, PDO::PARAM_INT);
+		$stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+		try {
+			$stmt->execute();
+			$stmt->closeCursor();
+			unset($stmt);
+		} catch (PDOException $exception) {
+			echo '<p>' . $exception->getMessage() . '</p>';
+		}
+		$user->pseudo = $pseudo;
+		$user->email = $email;
+		$user->description = $description;
+		$user->private = $private;
+		$_SESSION['user'] = $user;
+		return true;
+	}
+
+	public static function update_hash ($id, $mdp) {
+		global $pdo;
+
+		$stmt = $pdo->prepare('update utilisateur set mdp = :mdp where id = :id limit 1');
+		$stmt->bindValue(':mdp', $mdp, PDO::PARAM_STR);
+		$stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+		try {
+			$stmt->execute();
+			$stmt->closeCursor();
+			unset($stmt);
+		} catch (PDOException $exception) {
+			echo '<p>' . $exception->getMessage() . '</p>';
+		}
+
+		return true;
 	}
 }
 

@@ -13,11 +13,13 @@
 		<tbody>
 			<?php
 				foreach (JVUser::select_contains_orderbyname($_GET['filtre']) as $index => $row) {
-					echo '<tr>';
-					echo '<td>' . $row['pseudo'] . '</td>';
-					echo '<td><a href="list-jeu-utilisateur-'.$row['id'].'.html">Collection de jeux</a></td>';
-					echo '<td><a href="list-console-utilisateur-'.$row['id'].'.html">Collection de consoles</a></td>';
-					echo '</tr>';
+					if($row['private'] == 0){
+						echo '<tr>';
+						echo '<td>' . $row['pseudo'] . '</td>';
+						echo '<td><a href="list-jeu-utilisateur-'.$row['id'].'.html">Collection de jeux</a></td>';
+						echo '<td><a href="list-console-utilisateur-'.$row['id'].'.html">Collection de consoles</a></td>';
+						echo '</tr>';
+					}
 				}
 			?>
 		</tbody>
