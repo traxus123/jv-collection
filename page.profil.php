@@ -61,7 +61,7 @@ if (isset($_GET['operation'])) {
 			<table>
 				<tbody>
 					<tr>
-						<td>Pseudo :</td>
+						<td>Email :</td>
 						<td>
 							<?php
 								if (isset($_POST['email'])) {
@@ -73,7 +73,7 @@ if (isset($_GET['operation'])) {
 						</td>
 					</tr>
 					<tr>
-						<td>pseudo :</td>
+						<td>Pseudo :</td>
 						<td>
 							<?php
 								if (isset($_POST['pseudo'])) {

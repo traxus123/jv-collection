@@ -13,7 +13,7 @@
 		<tbody>
 			<?php
 				foreach (JVUser::select_contains_orderbyname($_GET['filtre']) as $index => $row) {
-					if($row['private'] == 0){
+					if($row['private'] == 1){
 						echo '<tr>';
 						echo '<td>' . $row['pseudo'] . '</td>';
 						echo '<td><a href="list-jeu-utilisateur-'.$row['id'].'.html">Collection de jeux</a></td>';

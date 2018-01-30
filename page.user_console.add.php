@@ -175,7 +175,7 @@
 						<?php
 							if (count($_POST) > 0) {
 								$row2 = Menu::select_type(4);
-								echo '<select name="Constructeur" onchange="Cchecknull(event)" id="Constructeur">';
+								echo '<select name="Constructeur" onchange="Cchecknull(event); GetList(event);" id="Constructeur">';
 								echo '<option value=""> --- </option>';
 								foreach ($row2 as $key => $value) {	
 									echo '<option value="' . $value['nom'] . '">' . $value['nom'] . '</option>';
@@ -184,7 +184,7 @@
 								echo '<div id="ConstructeurIsNull"></div>';
 							} else {
 								$row2 = Menu::select_type(4);
-								echo '<select name="Constructeur" onchange="Cchecknull(event)" id="Constructeur">';
+								echo '<select name="Constructeur" onchange="Cchecknull(event); GetList(event);" id="Constructeur">';
 								foreach ($row2 as $key => $value) {	
 									echo '<option value="' . $value['nom'] . '">' . $value['nom'] . '</option>';
 								}

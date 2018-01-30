@@ -150,13 +150,14 @@ class Jeu {
 		$stmt->bindValue(':prix', $prix, PDO::PARAM_INT);
 		$stmt->bindValue(':description', $description, PDO::PARAM_STR);
 		$stmt->bindValue(':image', $image, PDO::PARAM_STR);
+		$stmt->bindValue(':id', $id, PDO::PARAM_INT);
 
 		try {
 			$stmt->execute();
 			$stmt->closeCursor();
 			unset($stmt);
 		} catch (PDOException $exception) {
-			//return new CalliopeError(CalliopeError::CODE_DEFAULT_KO, 'Erreur lors de la mise à jour d\'un jeu', '<p>' . $exception->getMessage() . '</p>');
+			echo '<p>' . $exception->getMessage() . '</p>';
 		}
 
 		return true;

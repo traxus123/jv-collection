@@ -192,11 +192,6 @@ class JVUser {
 		} catch (PDOException $exception) {
 			echo '<p>' . $exception->getMessage() . '</p>';
 		}
-		$user->pseudo = $pseudo;
-		$user->email = $email;
-		$user->description = $description;
-		$user->private = $private;
-		$_SESSION['user'] = $user;
 		return true;
 	}
 

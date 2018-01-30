@@ -123,6 +123,8 @@
     }
 
 	function GetList(ev) {
+		console.log("change");
+
 		if(document.getElementById("Genre")){
 			callPage('script.user_jeu.add.list.php?Nom='+document.getElementById("Nom").value+'&Console='+document.getElementById("Console").value+'&Genre='+document.getElementById("Genre").value+'&Developpeur='+document.getElementById("Developpeur").value+'&Editeur='+document.getElementById("Editeur").value+'&Annee='+document.getElementById("Annee").value, document.getElementById("list"));
 		}
@@ -150,7 +152,7 @@
 	function Gchecknull(ev){
 		if(document.getElementById('Genre').value == "") {
     		console.log('ok');
-    		document.getElementById('GenreIsNull').innerHTML = '<input name="NGenre" id="Genre" onchange="GetList(event)" placeholder="Entrez un Genre." style="width: 100%;" type="text" />';
+    		document.getElementById('GenreIsNull').innerHTML = '<input name="NGenre" id="Genre" placeholder="Entrez un Genre." style="width: 100%;" type="text" />';
     	}
     	else{
     		document.getElementById('GenreIsNull').innerHTML = '';
@@ -160,7 +162,7 @@
 	function Dchecknull(ev){
 		if(document.getElementById('Developpeur').value == "") {
     		console.log('ok');
-    		document.getElementById('DeveloppeurIsNull').innerHTML = '<input name="NDeveloppeur" id="Developpeur" onchange="GetList(event)" placeholder="Entrez un Developpeur." style="width: 100%;" type="text" />';
+    		document.getElementById('DeveloppeurIsNull').innerHTML = '<input name="NDeveloppeur" id="Developpeur" placeholder="Entrez un Developpeur." style="width: 100%;" type="text" />';
     	}
     	else{
     		document.getElementById('DeveloppeurIsNull').innerHTML = '';
@@ -170,7 +172,7 @@
 	function Echecknull(ev){
 		if(document.getElementById('Editeur').value == "") {
     		console.log('ok');
-    		document.getElementById('EditeurIsNull').innerHTML = '<input name="NEditeur" id="Editeur" onchange="GetList(event)" placeholder="Entrez un Editeur." style="width: 100%;" type="text" />';
+    		document.getElementById('EditeurIsNull').innerHTML = '<input name="NEditeur" id="Editeur" placeholder="Entrez un Editeur." style="width: 100%;" type="text" />';
     	}
     	else{
     		document.getElementById('EditeurIsNull').innerHTML = '';
@@ -231,7 +233,7 @@
 						<?php
 							if (count($_POST) > 0) {
 								$row2 = Menu::select_type(1);
-								echo '<select name="Genre" onchange="Gchecknull(event)" id="Genre">';
+								echo '<select name="Genre" onchange="Gchecknull(event); GetList(event);" id="Genre">';
 								echo '<option value=""> --- </option>';
 								foreach ($row2 as $key => $value) {	
 									echo '<option value="' . $value['nom'] . '">' . $value['nom'] . '</option>';
@@ -240,7 +242,7 @@
 								echo '<div id="GenreIsNull"></div>';
 							} else {
 								$row2 = Menu::select_type(1);
-								echo '<select name="Genre" onchange="Gchecknull(event)" id="Genre">';
+								echo '<select name="Genre" onchange="Gchecknull(event); GetList(event);" id="Genre">';
 								foreach ($row2 as $key => $value) {	
 									echo '<option value="' . $value['nom'] . '">' . $value['nom'] . '</option>';
 								}
@@ -264,7 +266,7 @@
 						<?php
 							if (count($_POST) > 0) {
 								$row2 = Menu::select_type(2);
-								echo '<select name="Developpeur" onchange="Dchecknull(event)" id="Developpeur">';
+								echo '<select name="Developpeur" onchange="Dchecknull(event); GetList(event);" id="Developpeur">';
 								echo '<option value=""> --- </option>';
 								foreach ($row2 as $key => $value) {	
 									echo '<option value="' . $value['nom'] . '">' . $value['nom'] . '</option>';
@@ -273,7 +275,7 @@
 								echo '<div id="DeveloppeurIsNull"></div>';
 							} else {
 								$row2 = Menu::select_type(2);
-								echo '<select name="Developpeur" onchange="Dchecknull(event)" id="Developpeur">';
+								echo '<select name="Developpeur" onchange="Dchecknull(event); GetList(event);" id="Developpeur">';
 								foreach ($row2 as $key => $value) {	
 									echo '<option value="' . $value['nom'] . '">' . $value['nom'] . '</option>';
 								}
@@ -298,7 +300,7 @@
 						<?php
 							if (count($_POST) > 0) {
 								$row2 = Menu::select_type(3);
-								echo '<select name="Editeur" onchange="Echecknull(event)" id="Editeur">';
+								echo '<select name="Editeur" onchange="Echecknull(event); GetList(event);" id="Editeur">';
 								echo '<option value=""> --- </option>';
 								foreach ($row2 as $key => $value) {	
 									echo '<option value="' . $value['nom'] . '">' . $value['nom'] . '</option>';
@@ -307,7 +309,7 @@
 								echo '<div id="EditeurIsNull"></div>';
 							} else {
 								$row2 = Menu::select_type(3);
-								echo '<select name="Editeur" onchange="Echecknull(event)" id="Editeur">';
+								echo '<select name="Editeur" onchange="Echecknull(event); GetList(event);" id="Editeur">';
 								foreach ($row2 as $key => $value) {	
 									echo '<option value="' . $value['nom'] . '">' . $value['nom'] . '</option>';
 								}
