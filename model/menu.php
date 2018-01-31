@@ -40,7 +40,7 @@ class Menu {
 			$stmt->closeCursor();
 			unset($stmt);
 		} catch (PDOException $exception) {
-			echo $exception;
+			echo '<p>' . $exception->getMessage() . '</p>';
 		}
 
 		return $pdo->lastInsertId();
@@ -112,7 +112,7 @@ class Menu {
 			$stmt->closeCursor();
 			unset($stmt);
 		} catch (PDOException $exception) {
-			//return new CalliopeError(CalliopeError::CODE_DEFAULT_KO, 'Erreur lors de la mise à jour d\'un jeu', '<p>' . $exception->getMessage() . '</p>');
+			echo '<p>' . $exception->getMessage() . '</p>';
 		}
 
 		return true;

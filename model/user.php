@@ -130,7 +130,7 @@ class JVUser {
 			$stmt->closeCursor();
 			unset($stmt);
 		} catch (PDOException $exception) {
-			return $exception;
+			echo '<p>' . $exception->getMessage() . '</p>';
 		}
 
 		return true;

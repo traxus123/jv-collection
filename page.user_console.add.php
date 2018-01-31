@@ -109,6 +109,7 @@
 		document.getElementById("Description").value = document.getElementById("s_description_"+ev.target.parentElement.parentElement.id.split('_')[2]).innerHTML
 
 		document.getElementById('ConstructeurIsNull').innerHTML = '';
+		GetList(ev);
 	}
 
 	function Cchecknull(ev){

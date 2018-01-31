@@ -17,7 +17,7 @@
 	require('./model/pdo.php');
 	require('./model/user.php');
 	require('./model/console.php');
-	foreach (Console::select_contains_orderbyname($_GET['filtre']) as $index => $row) {
+	foreach (Console::select_filters_orderbyname($_GET['Nom'], $_GET['Model'], $_GET['Constructeur'], $_GET['Annee']) as $index => $row) {
 		$console = new Console($row);
 
 		echo '<tr>';

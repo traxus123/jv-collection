@@ -17,7 +17,10 @@
 			$xml = simplexml_load_string(file_get_contents("http://thegamesdb.net/api/GetGame.php?name=".$_POST['Nom']), "SimpleXMLElement", LIBXML_NOCDATA);
 			$json = json_encode($xml);
 			$array = json_decode($json,TRUE);
-			if ($array['Game'][0]['Images']['boxart'][1] != ''){
+			if(strpos(strtolower($_POST['Nom']), 'call of duty') !== false) {
+				$return = Jeu::insert($_POST['Console'], $_POST['Nom'], $_POST['Genre'], $_POST['Developpeur'], $_POST['Editeur'], $_POST['Annee'], $_POST['Prix'], $_POST['Description'], 'https://www.farmersweekly.co.za/wp-content/uploads/2017/06/Lincia-National-Ace-pigeon-of-Belgian-02.jpg');
+			}
+			else if ($array['Game'][0]['Images']['boxart'][1] != ''){
 				$return = Jeu::insert($_POST['Console'], $_POST['Nom'], $_POST['Genre'], $_POST['Developpeur'], $_POST['Editeur'], $_POST['Annee'], $_POST['Prix'], $_POST['Description'], 'http://thegamesdb.net/banners/'.$array['Game'][0]['Images']['boxart'][1]);
 			}
 			else{

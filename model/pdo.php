@@ -21,14 +21,7 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 }
 catch (PDOException $e) {
-	/*$error = new PlanError(
-		PlanError::CODE_DEFAULT_KO,
-		'Erreur de connexion à la base.',
-		'ERREUR PDO dans ' . $e->getFile() . ' L.' . $e->getLine() . ' : ' . $e->getMessage());
-
-    //$error->redirect();
-	exit();*/
-	echo ('ERREUR PDO dans ' . $e->getFile() . ' L.' . $e->getLine() . ' : ' . $e->getMessage());
+	echo '<p>' . $exception->getMessage() . '</p>';
 }
 
 /*

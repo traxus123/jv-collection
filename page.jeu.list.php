@@ -53,7 +53,7 @@
     }
 
 	function reload(ev) {
-   		callPage('script.jeu.list.php?filtre='+document.getElementById("txt-filter").value, document.getElementById("list"));
+   		callPage('script.jeu.list.php?Nom='+document.getElementById("Nom").value+'&Console='+document.getElementById("Console").value+'&Genre='+document.getElementById("Genre").value+'&Developpeur='+document.getElementById("Developpeur").value+'&Editeur='+document.getElementById("Editeur").value+'&Annee='+document.getElementById("Annee").value, document.getElementById("list"));
 	}
 
 </script>
@@ -66,8 +66,18 @@
 			echo '<a class="icon icon-add" href="./ajouter-jeu.html" title="Ajouter une nouveau jeu."></a>';
 		?>
 		<div class="float-right">
-			Filtre :
-			<input type="text" id="txt-filter" onchange="reload(event)"/>
+			Nom :
+			<input type="text" id="Nom" onchange="reload(event)"/>
+			Console (TODO) :
+			<input type="text" id="Console" onchange="reload(event)"/>
+			Genre :
+			<input type="text" id="Genre" onchange="reload(event)"/>
+			Developpeur :
+			<input type="text" id="Developpeur" onchange="reload(event)"/>
+			Editeur :
+			<input type="text" id="Editeur" onchange="reload(event)"/>
+			Annee :
+			<input type="text" id="Annee" onchange="reload(event)"/>
 		</div>
 	</header>
 	<div id="list">

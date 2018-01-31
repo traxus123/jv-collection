@@ -22,7 +22,7 @@
 		</thead>
 		<tbody>
 			<?php
-				foreach (Jeu::u_select_contains_orderbyname($user->id, $_GET['filtre']) as $index => $row) {
+				foreach (Jeu::u_select_filters_orderbyname($user->id, $_GET['Nom'],  $_GET['Console'], $_GET['Genre'], $_GET['Developpeur'], $_GET['Editeur'], $_GET['Annee']) as $index => $row) {
 					echo '<tr>';
 					if($row['Image'] != ''){
 						echo '<td><img height="50px" src="' . $row['Image'] . '"></td>';

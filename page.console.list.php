@@ -52,7 +52,7 @@
     }
 
 	function reload(ev) {
-   		callPage('script.console.list.php?filtre='+document.getElementById("txt-filter").value, document.getElementById("list"));
+   		callPage('script.console.list.php?Nom='+document.getElementById("Nom").value+'&Model='+document.getElementById("Model").value+'&Constructeur='+document.getElementById("Constructeur").value+'&Annee='+document.getElementById("Annee").value, document.getElementById("list"));
 	}
 
 </script>
@@ -66,8 +66,14 @@
 			echo '<a class="icon icon-add" href="./ajouter-console.html" title="Ajouter une nouvelle console."></a>';
 		?>
 		<div class="float-right">
-			Filtre :
-			<input type="text" id="txt-filter" onchange="reload(event)"/>
+			Nom :
+			<input type="text" id="Nom" onchange="reload(event)"/>
+			Model :
+			<input type="text" id="Model" onchange="reload(event)"/>
+			Constructeur :
+			<input type="text" id="Constructeur" onchange="reload(event)"/>
+			Annee :
+			<input type="text" id="Annee" onchange="reload(event)"/>
 		</div>
 	</header>
 	<div class="half" id="list">

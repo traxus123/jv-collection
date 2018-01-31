@@ -23,7 +23,7 @@
 		<tbody>
 			<?php
 
-				foreach (Jeu::select_contains_orderbyname($_GET['filtre']) as $index => $row) {
+				foreach (Jeu::select_filters_orderbyname($_GET['Nom'],  $_GET['Console'], $_GET['Genre'], $_GET['Developpeur'], $_GET['Editeur'], $_GET['Annee']) as $index => $row) {
 					$jeu = new Jeu($row);
 					$console = Console::select($jeu->id_console());
 

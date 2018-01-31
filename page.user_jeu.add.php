@@ -147,6 +147,7 @@
 		document.getElementById('GenreIsNull').innerHTML = '';
 		document.getElementById('DeveloppeurIsNull').innerHTML = '';
 		document.getElementById('EditeurIsNull').innerHTML = '';
+		GetList(ev);
 	}
 
 	function Gchecknull(ev){

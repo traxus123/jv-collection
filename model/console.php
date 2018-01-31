@@ -53,7 +53,7 @@ class Console {
 			$stmt->closeCursor();
 			unset($stmt);
 		} catch (PDOException $exception) {
-			echo $exception;
+			echo '<p>' . $exception->getMessage() . '</p>';
 		}
 
 		return $pdo->lastInsertId();
@@ -172,7 +172,7 @@ class Console {
 			$stmt->closeCursor();
 			unset($stmt);
 		} catch (PDOException $exception) {
-			//return new CalliopeError(CalliopeError::CODE_DEFAULT_KO, 'Erreur lors de la mise à jour d\'un jeu', '<p>' . $exception->getMessage() . '</p>');
+			echo '<p>' . $exception->getMessage() . '</p>';
 		}
 
 		return true;
@@ -193,7 +193,7 @@ class Console {
 			$stmt->closeCursor();
 			unset($stmt);
 		} catch (PDOException $exception) {
-			//return new CalliopeError(CalliopeError::CODE_DEFAULT_KO, 'Erreur lors de l\'ajout d\'un jeu', '<p>' . $exception->getMessage() . '</p>');
+			echo '<p>' . $exception->getMessage() . '</p>';
 		}
 
 		return $pdo->lastInsertId();
@@ -269,6 +269,24 @@ class Console {
 		
 		return $data;
 	}
+
+	public static function u_select_filters_orderbyname($user, $nom, $model, $constructeur, $annee){
+		global $pdo;
+
+		$stmt = $pdo->prepare('select c.*, u.etat, u.id as uid from console c, user_console u where c.nom like :nom and c.model like :model and c.constructeur like :constructeur and c.annee like :annee and c.id = u.id_console AND u.id_user = :user order by nom, model;');
+		$stmt->bindValue(':user', $user, PDO::PARAM_INT);
+		$stmt->bindValue(':nom','%'.$nom.'%', PDO::PARAM_STR);
+		$stmt->bindValue(':model','%'.$model.'%', PDO::PARAM_STR);
+		$stmt->bindValue(':constructeur','%'.$constructeur.'%', PDO::PARAM_STR);
+		$stmt->bindValue(':annee','%'.$annee.'%');
+		$stmt->execute();
+		$data = $stmt->fetchALL();
+		$stmt->closeCursor();
+		unset($stmt);
+		
+		return $data;
+	}
+
 	public static function u_delete ($id) {
 		global $pdo;
 
@@ -295,7 +313,7 @@ class Console {
 			$stmt->closeCursor();
 			unset($stmt);
 		} catch (PDOException $exception) {
-			//return new CalliopeError(CalliopeError::CODE_DEFAULT_KO, 'Erreur lors de la mise à jour d\'un jeu', '<p>' . $exception->getMessage() . '</p>');
+			echo '<p>' . $exception->getMessage() . '</p>';
 		}
 
 		return true;

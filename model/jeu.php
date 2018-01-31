@@ -176,7 +176,7 @@ class Jeu {
 			$stmt->closeCursor();
 			unset($stmt);
 		} catch (PDOException $exception) {
-			//return new CalliopeError(CalliopeError::CODE_DEFAULT_KO, 'Erreur lors de l\'ajout d\'un jeu', '<p>' . $exception->getMessage() . '</p>');
+			echo '<p>' . $exception->getMessage() . '</p>';
 		}
 
 		return $pdo->lastInsertId();
@@ -256,6 +256,25 @@ class Jeu {
 		return $data;
 	}
 
+	public static function u_select_filters_orderbyname($user, $nom, $console, $genre, $developpeur, $editeur, $annee){
+		global $pdo;
+
+		$stmt = $pdo->prepare('select c.*, u.etat, u.id as uid from jeu c, user_jeu u where c.nom like :nom and c.id_console like :console and c.genre like :genre and c.developpeur like :developpeur and c.editeur like :editeur and c.annee like :annee and c.id = u.id_jeu AND u.id_user = :user order by nom, id_console;');
+		$stmt->bindValue(':user', $user, PDO::PARAM_INT);
+		$stmt->bindValue(':nom','%'.$nom.'%', PDO::PARAM_STR);
+		$stmt->bindValue(':console','%'.$console.'%', PDO::PARAM_STR);
+		$stmt->bindValue(':genre','%'.$genre.'%', PDO::PARAM_STR);
+		$stmt->bindValue(':developpeur','%'.$developpeur.'%', PDO::PARAM_STR);
+		$stmt->bindValue(':editeur','%'.$editeur.'%', PDO::PARAM_STR);
+		$stmt->bindValue(':annee','%'.$annee.'%');
+		$stmt->execute();
+		$data = $stmt->fetchALL();
+		$stmt->closeCursor();
+		unset($stmt);
+		
+		return $data;
+	}
+
 	public static function u_delete ($id) {
 		global $pdo;
 
@@ -282,7 +301,7 @@ class Jeu {
 			$stmt->closeCursor();
 			unset($stmt);
 		} catch (PDOException $exception) {
-			//return new CalliopeError(CalliopeError::CODE_DEFAULT_KO, 'Erreur lors de la mise à jour d\'un jeu', '<p>' . $exception->getMessage() . '</p>');
+			echo '<p>' . $exception->getMessage() . '</p>';
 		}
 
 		return true;
