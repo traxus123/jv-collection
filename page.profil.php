@@ -20,7 +20,6 @@ if (isset($_GET['operation'])) {
 
 		case 'updateprofile' :
 			if (!JVUser::check_email($user->id, $_POST['email'])) {
-				$status = ERROR_EMAILALREADYUSED;
 				break;
 			}
 
