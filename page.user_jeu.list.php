@@ -3,6 +3,7 @@
 	require('./model/user.php');
 	require('./model/console.php');
 	require('./model/jeu.php');
+	require('./model/menu.php');
 ?>
 <html>
 	
@@ -131,14 +132,46 @@ ________________________________________________________________▀▀▀▀
 		<div class="float-right">
 			Nom :
 			<input type="text" id="Nom" onchange="reload(event)"/>
-			Console (TODO) :
-			<input type="text" id="Console" onchange="reload(event)"/>
+			Console :
+			<?php
+				$row2 = Console::select_d_orderbyname ();
+				echo '<select id="Console" onchange="reload(event)" name="Console">';
+				echo '<option value=""> --- </option>';
+				foreach ($row2 as $key => $value) {	
+					echo '<option value="' . $value['id'] . '">' . $value['nom'] . '</option>';
+				}
+				echo '</select>';
+			?>
 			Genre :
-			<input type="text" id="Genre" onchange="reload(event)"/>
+			<?php
+				$row2 = Menu::select_type(1);
+				echo '<select id="Genre" onchange="reload(event)" name="Genre">';
+				echo '<option value=""> --- </option>';
+				foreach ($row2 as $key => $value) {	
+					echo '<option value="' . $value['nom'] . '">' . $value['nom'] . '</option>';
+				}
+				echo '</select>';
+			?>
 			Developpeur :
-			<input type="text" id="Developpeur" onchange="reload(event)"/>
+			<?php
+				$row2 = Menu::select_type(2);
+				echo '<select id="Developpeur" onchange="reload(event)" name="Developpeur">';
+				echo '<option value=""> --- </option>';
+				foreach ($row2 as $key => $value) {	
+					echo '<option value="' . $value['nom'] . '">' . $value['nom'] . '</option>';
+				}
+				echo '</select>';
+			?>
 			Editeur :
-			<input type="text" id="Editeur" onchange="reload(event)"/>
+			<?php
+				$row2 = Menu::select_type(3);
+				echo '<select id="Editeur" onchange="reload(event)" name="Editeur">';
+				echo '<option value=""> --- </option>';
+				foreach ($row2 as $key => $value) {	
+					echo '<option value="' . $value['nom'] . '">' . $value['nom'] . '</option>';
+				}
+				echo '</select>';
+			?>
 			Annee :
 			<input type="text" id="Annee" onchange="reload(event)"/>
 		</div>

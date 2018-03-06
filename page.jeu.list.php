@@ -68,8 +68,16 @@
 		<div class="float-right">
 			Nom :
 			<input type="text" id="Nom" onchange="reload(event)"/>
-			Console (TODO) :
-			<input type="text" id="Console" onchange="reload(event)"/>
+			Console :
+			<?php
+				$row2 = Console::select_d_orderbyname ();
+				echo '<select id="Console" onchange="reload(event)" name="Console">';
+				echo '<option value=""> --- </option>';
+				foreach ($row2 as $key => $value) {	
+					echo '<option value="' . $value['id'] . '">' . $value['nom'] . '</option>';
+				}
+				echo '</select>';
+			?>
 			Genre :
 			<input type="text" id="Genre" onchange="reload(event)"/>
 			Developpeur :

@@ -45,6 +45,12 @@
 			$post_check = false;
 		}
 
+		if (trim($_POST['Etat']) == '') {
+			if($_POST['Etat'] < 0 || $_POST['Etat'] > 10){
+				$post_check = false;
+			}
+		}
+
 		if ($post_check) {
 			/* Insertion du jeu. */ 
 
@@ -214,6 +220,7 @@
 						<?php
 							$row2 = Console::select_d_orderbyname ();
 							echo '<select id="Console" onchange="GetList(event)" name="Console">';
+							echo '<option value="0">PC</option>';
 							foreach ($row2 as $key => $value) {	
 								echo '<option value="' . $value['id'] . '">' . $value['nom'] . '</option>';
 							}
@@ -390,11 +397,12 @@
 					<td>
 						<?php
 							if (count($_POST) > 0) {
-								echo '<input name="Etat" placeholder="Entrez un Etat. (/10)" style="width: 100%;" type="text" value="' . $_POST['Etat'] . '" />';
+								echo '<input name="Etat" onchange="CheckValue(event)" placeholder="Entrez un Etat. (/10)" style="width: 100%;" type="number" min="0" max="10" value="' . $_POST['Etat'] . '" />';
 							} else {
-								echo '<input name="Etat" placeholder="Entrez un Etat. (/10)" style="width: 100%;" type="text" />';
+								echo '<input name="Etat" onchange="CheckValue(event)" placeholder="Entrez un Etat. (/10)" style="width: 100%;" type="number" min="0" max="10" />';
 							}
 						?>
+						<div id="Etat_Error"></div>
 					</td>
 					<td>
 						<?php
@@ -407,7 +415,7 @@
 			</tbody>
 		</table>
 
-		<center><input type="submit" value="Envoyer" /></center>
+		<center><input type="submit" value="Envoyer" id="submit"/></center>
 	</form>
 	</div>
 	<div id="list" class="addContener">

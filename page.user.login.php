@@ -23,7 +23,11 @@ if (count($_POST) > 0) {
 		include('./inc.nav.php');
 	?>
 </header>
-
+<style>
+.w-100{
+	width: 100%;
+}
+</style>
 <section>
 	<header>
 		<h1>Identification</h1>
@@ -76,7 +80,7 @@ if (count($_POST) > 0) {
 			<h2>Inscription</h2>
 		</header>
 		<form action="./script.suscribe.php" method="post">
-			<table class="column-2-right" style="width: 100%;">
+			<table class="column-2-right" class="w-100"style="width: 100%;">
 				<tbody>
 					<tr>
 						<td>Pseudo :</td>

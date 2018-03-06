@@ -2,6 +2,7 @@
 	require('./model/pdo.php');
 	require('./model/user.php');
 	require('./model/console.php');
+	require('./model/menu.php');
 ?>
 <html>
 	<?php
@@ -113,7 +114,15 @@ ________________________________________________▓▓▓▓▓▓▓
 			Model :
 			<input type="text" id="Model" onchange="reload(event)"/>
 			Constructeur :
-			<input type="text" id="Constructeur" onchange="reload(event)"/>
+			<?php
+				$row2 = Menu::select_type(4);
+				echo '<select id="Constructeur" onchange="reload(event)" name="Constructeur">';
+				echo '<option value=""> --- </option>';
+				foreach ($row2 as $key => $value) {	
+					echo '<option value="' . $value['nom'] . '">' . $value['nom'] . '</option>';
+				}
+				echo '</select>';
+			?>
 			Annee :
 			<input type="text" id="Annee" onchange="reload(event)"/>
 		</div>

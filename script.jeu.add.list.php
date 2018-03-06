@@ -26,7 +26,12 @@
 
 					echo '<tr id="click_on_'.$jeu->id().'" ondblclick="LoadList(event)">';
 					echo '<td id="s_nom_'.$jeu->id().'">' . $jeu->nom() . '</td>';
-					echo '<td id="s_console_'.$jeu->id().'" class="'.$jeu->id_console().'">' . $console['nom'] . '</td>';
+					if($jeu->id_console() != 0){
+						echo '<td id="s_console_'.$jeu->id().'" class="'.$jeu->id_console().'">' . $console['nom'] . '</td>';
+					}
+					else{
+						echo '<td id="s_console_'.$jeu->id().'" class="'.$jeu->id_console().'">PC</td>';
+					}
 					echo '<td id="s_genre_'.$jeu->id().'">' . $jeu->genre() . '</td>';
 					echo '<td id="s_developpeur_'.$jeu->id().'">' . $jeu->developpeur() . '</td>';
 					echo '<td id="s_editeur_'.$jeu->id().'">' . $jeu->editeur() . '</td>';

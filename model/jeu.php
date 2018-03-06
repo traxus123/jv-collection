@@ -41,6 +41,10 @@ class Jeu {
 	 * Fonctions statiques.
 	 **/
 
+
+	/*
+	 * Insert un nouveau jeu.
+	 */
 	public static function insert ($id_console, $nom, $genre, $developpeur, $editeur, $annee, $prix, $description, $image) {
 		global $pdo;
 
@@ -81,6 +85,10 @@ class Jeu {
 
 		return $data;
 	}
+
+	/*
+	 * Sélectionne tous les jeux ordonés par nom.
+	 */
 	public static function select_orderbyname () {
 		global $pdo;
 
@@ -93,6 +101,9 @@ class Jeu {
 		return $data;
 	}
 
+	/*
+	 * Sélectionne tous les jeux ordonés par nom dont le nom correspond a la valeur entrée en parramètre.
+	 */
 	public static function select_contains_orderbyname($filtre) {
 		global $pdo;
 
@@ -106,6 +117,9 @@ class Jeu {
 		return $data;
 	}
 
+	/*
+	 * Sélectionne tous les jeux ordonés par nom dont le nom correspond aux valeurs entrées en parrametres.
+	 */
 	public static function select_filters_orderbyname($nom, $console, $genre, $developpeur, $editeur, $annee){
 		global $pdo;
 
@@ -124,6 +138,9 @@ class Jeu {
 		return $data;
 	}
 
+	/*
+	 * Supprime le jeu dont l'identifiant est passé en paramètre.
+	 */
 	public static function delete ($id) {
 		global $pdo;
 
@@ -136,6 +153,9 @@ class Jeu {
 		return $data;
 	}
 
+	/*
+	 * Modifie le jeu dont l'identifiant est passé en paramètre.
+	 */
 	public static function update ($id, $id_console, $nom, $genre, $developpeur, $editeur, $annee, $prix, $description, $image) {
 		global $pdo;
 
@@ -163,6 +183,9 @@ class Jeu {
 		return true;
 	}
 
+	/*
+	 * Insert un nouveau jeu_utilisateur.
+	 */
 	public static function u_insert ($id_user, $id_jeu, $etat) {
 		global $pdo;
 
@@ -183,7 +206,7 @@ class Jeu {
 	}
 
 	/*
-	 * Sélectionne le jeu dont l'identifiant est passé en paramètre.
+	 * Sélectionne le jeu_utilisateur dont l'identifiant est passé en paramètre.
 	 */
 	public static function u_select ($id) {
 		global $pdo;
@@ -198,6 +221,9 @@ class Jeu {
 		return $data;
 	}
 
+	/*
+	 * Sélectionne le jeu_utilisateur et les données correspondantes dont l'identifiant est passé en paramètre.
+	 */
 	public static function u_select_c ($id) {
 		global $pdo;
 
@@ -211,6 +237,9 @@ class Jeu {
 		return $data;
 	}
 	
+	/*
+	 * Sélectionne les jeu_utilisateur correspondant a l'utilisateur entré en parrametre.
+	 */
 	public static function u_select_orderbyname ($user) {
 		global $pdo;
 
@@ -224,6 +253,9 @@ class Jeu {
 		return $data;
 	}
 
+	/*
+	 * Sélectionne le jeu_utilisateur dont les données sont entrées en parrametres.
+	 */
 	public static function u_select_name_model_const_date ($console, $nom, $genre, $developpeur, $editeur, $annee) {
 		global $pdo;
 
@@ -242,6 +274,9 @@ class Jeu {
 		return $data;
 	}
 
+	/*
+	 * Sélectionne les jeu_utilisateur et les données correspondantes dont l'utilisateur est entré en parrametres et correspondant au filtrage.
+	 */
 	public static function u_select_contains_orderbyname($user, $filtre) {
 		global $pdo;
 
@@ -256,6 +291,9 @@ class Jeu {
 		return $data;
 	}
 
+	/*
+	 * Sélectionne les jeu_utilisateur et les données correspondantes dont l'utilisateur est entré en parrametres et correspondant aux filtrages.
+	 */
 	public static function u_select_filters_orderbyname($user, $nom, $console, $genre, $developpeur, $editeur, $annee){
 		global $pdo;
 
@@ -275,6 +313,9 @@ class Jeu {
 		return $data;
 	}
 
+	/*
+	 * Supprime le jeu_utilisateur et les données correspondantes dont l'identifiant est passé en paramètre.
+	 */
 	public static function u_delete ($id) {
 		global $pdo;
 
@@ -287,6 +328,9 @@ class Jeu {
 		return $data;
 	}
 
+	/*
+	 * Modifie le jeu_utilisateur et les données correspondantes dont l'identifiant est passé en paramètre.
+	 */
 	public static function u_update ($id, $id_user, $etat) {
 		global $pdo;
 

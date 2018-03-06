@@ -31,7 +31,12 @@
 						echo '<td></td>';
 					}
 					echo '<td>' . $row['nom'] . '</td>';
-					echo '<td>' . Console::select($row['id_console'])['nom'] . '</td>';
+					if($row['id_console'] != 0){
+						echo '<td>' . Console::select($row['id_console'])['nom'] . '</td>';
+					}
+					else{
+						echo '<td>PC</td>';
+					}
 					echo '<td>' . $row['genre'] . '</td>';
 					echo '<td>' . $row['developpeur'] . '</td>';
 					echo '<td>' . $row['editeur'] . '</td>';

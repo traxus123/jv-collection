@@ -25,6 +25,11 @@
 		if (trim($_POST['Annee']) == '') {
 			$post_check = false;
 		}
+		if (trim($_POST['Etat']) == '') {
+			if($_POST['Etat'] < 0 || $_POST['Etat'] > 10){
+				$post_check = false;
+			}
+		}
 
 		if ($post_check) {
 			$console = Console::u_select_name_model_const_date($_POST['Nom'], $_POST['Model'], $_POST['Constructeur'], $_POST['Annee']);
@@ -58,6 +63,8 @@
 	?>
 </header>
 <script type="text/javascript">
+	var check = true;
+
 	function AjaxCaller(){
         var xmlhttp=false;
         try{
@@ -265,11 +272,12 @@
 					<td>
 						<?php
 							if (count($_POST) > 0) {
-								echo '<input name="Etat" placeholder="Entrez un Etat. (/10)" style="width: 100%;" type="text" value="' . $_POST['Etat'] . '" />';
+								echo '<input name="Etat" placeholder="Entrez un Etat. (/10)" style="width: 100%;" type="number" value="' . $_POST['Etat'] . '" min="0" max="10/>';
 							} else {
-								echo '<input name="Etat" placeholder="Entrez un Etat. (/10)" style="width: 100%;" type="text" />';
+								echo '<input name="Etat" onchange="CheckValue(event)" placeholder="Entrez un Etat. (/10)" style="width: 100%;" type="number" min="0" max="10"/>';
 							}
 						?>
+						<div id="Etat_Error"></div>
 					</td>
 					<td>
 						<?php
@@ -281,8 +289,7 @@
 				</tr>
 			</tbody>
 		</table>
-
-		<input type="submit" value="Envoyer" />
+		<input type="submit" value="Envoyer" id="submit"/>
 	</form>
 	</div>
 	<div id="list" class="addContener">

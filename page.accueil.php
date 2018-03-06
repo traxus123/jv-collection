@@ -58,7 +58,20 @@ __________▓▓
 			<h1>Accueil</h1>
 		</header>
 		<article>
-			
+			<header>
+				<h2>Présentation :</h2>
+			</header>
+			<p>[...] est un gestionaire de collection dédié aux consoles de jeu et aux jeux vidéos.</p>
+		</article>
+		<article>
+			<header>
+				<h2>Nouveautées :</h2>
+			</header>
+			<p>
+			- Modification de l'aspect graphique.</br>
+			- Modification des formulaires pour plus de claretée.</br>
+
+			</p>
 		</article>
 	</section>
 	<?php

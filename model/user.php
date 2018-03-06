@@ -21,37 +21,6 @@ class JVUser {
 	}
 
 	/*
-	 * Fonction permettant de vérifier si un utilisateur possède un droit.
-	 */
-	function hasRight ($sRight, $id = null) {
-		switch ($sRight) {
-			/*
-			case self::RIGHT_ARTICLE_ADD :
-			case self::RIGHT_ARTICLE_DELETE :
-			case self::RIGHT_ARTICLE_EDIT :
-			case self::RIGHT_PLAY_ADD :
-			case 'ajouter-evenement' :
-			case 'modifier-evenement' :
-			case 'modifier-jeu' :
-			case 'supprimer-evenement' :
-				return ($this->rank >= self::RANK_MEMBER);
-
-			case self::RIGHT_PLAY_DELETE :
-			case self::RIGHT_PLAY_EDIT :
-			case 'modifier-partie' :
-			case 'supprimer-partie' :
-				return ($this->rank >= self::RANK_ADMIN) || (($this->rank >= self::RANK_MEMBER) && ($id == $this->id));
-
-			case self::RIGHT_USER_ADD :
-			case 'ajouter-utilisateur' :
-				//Seul un administrateur peut ajouter un utilisateur. 
-				return ($this->rank >= self::RANK_ADMIN);
-			*/
-		}
-		return false;
-	}
-
-	/*
 	 * Fonction permettant de vérifier si un utilisateur est de rang administrateur.
 	 */
 	function isAdmin () {
@@ -78,6 +47,9 @@ class JVUser {
 		return $data;
 	}
 
+	/*
+	 * Fonction permettant de vérifier si un email est deja enregistrer.
+	 */
 	public static function check_email ($id, $email) {
 		global $pdo;
 
@@ -92,6 +64,9 @@ class JVUser {
 		return ($row['line_count'] <= 0);
 	}
 
+	/*
+	 * Fonction permettant de selectionner le hash de l'utilisateur dont l'identifient est entrer en parrametre.
+	 */
 	public static function select_hash ($id) {
 		global $pdo;
 
@@ -105,6 +80,9 @@ class JVUser {
 		return $row['mdp'];
 	}
 
+	/*
+	 * Fonction permettant selectionner tous les utilisateurs dont le pseudo correspond aux données entrées en parrametres.
+	 */
 	public static function select_contains_orderbyname ($filtre) {
 		global $pdo;
 

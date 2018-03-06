@@ -130,10 +130,11 @@
 						<?php
 							$row2 = Console::select_d_orderbyname ();
 							echo '<select id="Console" onchange="GetList(event)" name="Console">';
+							echo '<option value="0">PC</option>';
 							foreach ($row2 as $key => $value) {	
 								echo '<option value="' . $value['id'] . '">' . $value['nom'] . '</option>';
 							}
-							echo '</select>'
+							echo '</select>';
 						?>
 					</td>
 					<td>

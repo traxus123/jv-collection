@@ -36,6 +36,9 @@ class Console {
 	 * Fonctions statiques.
 	 **/
 
+	/*
+	 * Insert une nouvelle console.
+	 */
 	public static function insert ($nom, $model, $constructeur, $annee, $prix, $description, $image) {
 		global $pdo;
 
@@ -60,7 +63,7 @@ class Console {
 	}
 
 	/*
-	 * Sélectionne le jeu dont l'identifiant est passé en paramètre.
+	 * Sélectionne la console dont l'identifiant est passé en paramètre.
 	 */
 	public static function select ($id) {
 		global $pdo;
@@ -75,6 +78,9 @@ class Console {
 		return $data;
 	}
 
+	/*
+	 * Sélectionne toutes les consoles ordonés par nom.
+	 */
 	public static function select_orderbyname () {
 		global $pdo;
 
@@ -87,6 +93,9 @@ class Console {
 		return $data;
 	}
 
+	/*
+	 * Sélectionne toutes les consoles ordonés par nom dont le nom correspond a la valeur entrée en parramètre.
+	 */
 	public static function select_contains_orderbyname($filtre) {
 		global $pdo;
 
@@ -100,6 +109,9 @@ class Console {
 		return $data;
 	}
 
+	/*
+	 * Sélectionne toutes les consoles ordonés par nom dont le nom correspond aux valeurs entrées en parrametres.
+	 */
 	public static function select_filters_orderbyname($nom, $model, $constructeur, $annee){
 		global $pdo;
 
@@ -116,6 +128,9 @@ class Console {
 		return $data;
 	}
 
+	/*
+	 * Sélectionne toutes les consoles ordonés par nom capables d'aquellir des jeux.
+	 */
 	public static function select_d_orderbyname () {
 		global $pdo;
 
@@ -128,6 +143,9 @@ class Console {
 		return $data;
 	}
 
+	/*
+	 * Sélectionne les noms de toutes les consoles ordonés par nom capables d'aquellir des jeux.
+	 */
 	public static function select_name_d_orderbyname ($id) {
 		global $pdo;
 
@@ -141,6 +159,9 @@ class Console {
 		return $data;
 	}
 
+	/*
+	 * Supprime la console dont l'identifiant est passé en paramètre.
+	 */
 	public static function delete ($id) {
 		global $pdo;
 
@@ -153,6 +174,9 @@ class Console {
 		return $data;
 	}
 	
+	/*
+	 * Modifie la console dont l'identifiant est passé en paramètre.
+	 */
 	public static function update ($id, $nom, $model, $constructeur, $annee, $prix, $description, $image) {
 		global $pdo;
 
@@ -179,7 +203,9 @@ class Console {
 	}
 
 
-
+	/*
+	 * Insert une nouvelle console_utilisateur.
+	 */
 	public static function u_insert ($id_user, $id_console, $etat) {
 		global $pdo;
 
@@ -200,7 +226,7 @@ class Console {
 	}
 
 	/*
-	 * Sélectionne le jeu dont l'identifiant est passé en paramètre.
+	 * Sélectionne la console_utilisateur dont l'identifiant est passé en paramètre.
 	 */
 	public static function u_select ($id) {
 		global $pdo;
@@ -231,6 +257,9 @@ class Console {
 		return $data;
 	}
 
+	/*
+	 * Sélectionne la console_utilisateur et les données correspondantes dont l'identifiant est passé en paramètre.
+	 */
 	public static function u_select_c ($id) {
 		global $pdo;
 
@@ -244,6 +273,9 @@ class Console {
 		return $data;
 	}
 
+	/*
+	 * Sélectionne les console_utilisateur correspondant a l'utilisateur entré en parrametre.
+	 */
 	public static function u_select_orderbyname ($user) {
 		global $pdo;
 
@@ -257,6 +289,9 @@ class Console {
 		return $data;
 	}
 
+	/*
+	 * Sélectionne les console_utilisateur et les données correspondantes dont l'utilisateur est entré en parrametres et correspondant au filtrage.
+	 */
 	public static function u_select_contains_orderbyname($user, $filtre) {
 		global $pdo;
 		$stmt = $pdo->prepare('select c.*, u.etat, u.id as uid from console c, user_console u where c.id = u.id_console AND u.id_user = :user AND c.nom like :filtre order by nom');
@@ -270,6 +305,9 @@ class Console {
 		return $data;
 	}
 
+	/*
+	 * Sélectionne les console_utilisateur et les données correspondantes dont l'utilisateur est entré en parrametres et correspondant aux filtrages.
+	 */
 	public static function u_select_filters_orderbyname($user, $nom, $model, $constructeur, $annee){
 		global $pdo;
 
@@ -287,6 +325,9 @@ class Console {
 		return $data;
 	}
 
+	/*
+	 * Supprime la console_utilisateur et les données correspondantes dont l'identifiant est passé en paramètre.
+	 */
 	public static function u_delete ($id) {
 		global $pdo;
 
@@ -299,6 +340,9 @@ class Console {
 		return $data;
 	}
 
+	/*
+	 * Modifie la console_utilisateur et les données correspondantes dont l'identifiant est passé en paramètre.
+	 */
 	public static function u_update ($id, $id_user, $etat) {
 		global $pdo;
 

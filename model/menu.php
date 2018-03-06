@@ -28,6 +28,9 @@ class Menu {
 	 * Fonctions statiques.
 	 **/
 
+	/*
+	 * Insert un nouveau menu.
+	 */
 	public static function insert ($type, $nom) {
 		global $pdo;
 
@@ -52,7 +55,7 @@ class Menu {
 	public static function select ($id) {
 		global $pdo;
 
-		$stmt = $pdo->prepare('select * from menu where id = :id limit 1;');
+		$stmt = $pdo->prepare('select * from menu where id = :id limit 1;'); 
 		$stmt->bindValue(':id', $id, PDO::PARAM_INT);
 		$stmt->execute();
 		$data = $stmt->fetch();
@@ -62,6 +65,9 @@ class Menu {
 		return $data;
 	}
 
+	/*
+	 * Sélectionne les menus correspond au type entré en parramètres.
+	 */
 	public static function select_type ($type) {
 		global $pdo;
 
@@ -75,6 +81,9 @@ class Menu {
 		return $data;
 	}
 
+	/*
+	 * Sélectionne les menus ordonés par nom.
+	 */
 	public static function select_orderbyname () {
 		global $pdo;
 
@@ -87,6 +96,9 @@ class Menu {
 		return $data;
 	}
 
+	/*
+	 * Supprime le menu dont l'identifiant est passé en paramètre.
+	 */
 	public static function delete ($id) {
 		global $pdo;
 
@@ -99,6 +111,9 @@ class Menu {
 		return $data;
 	}
 
+	/*
+	 * Modifie le menu dont l'identifiant est passé en paramètre.
+	 */
 	public static function update ($id, $type, $nom) {
 		global $pdo;
 

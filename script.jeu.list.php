@@ -25,8 +25,6 @@
 
 				foreach (Jeu::select_filters_orderbyname($_GET['Nom'],  $_GET['Console'], $_GET['Genre'], $_GET['Developpeur'], $_GET['Editeur'], $_GET['Annee']) as $index => $row) {
 					$jeu = new Jeu($row);
-					$console = Console::select($jeu->id_console());
-
 					echo '<tr>';
 					if($jeu->image() != ''){
 						echo '<td><img height="50px" src="' . $jeu->image() . '"></td>';
@@ -35,7 +33,12 @@
 						echo '<td></td>';
 					}
 					echo '<td>' . $jeu->nom() . '</td>';
-					echo '<td>' . $console['nom'] . '</td>';
+					if($row['id_console'] != 0){
+						echo '<td>' . Console::select($row['id_console'])['nom'] . '</td>';
+					}
+					else{
+						echo '<td>PC</td>';
+					}
 					echo '<td>' . $jeu->genre() . '</td>';
 					echo '<td>' . $jeu->developpeur() . '</td>';
 					echo '<td>' . $jeu->editeur() . '</td>';

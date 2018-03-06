@@ -34,6 +34,7 @@
 	?>
 </header>
 <script type="text/javascript">
+
 	function AjaxCaller(){
         var xmlhttp=false;
         try{
@@ -78,7 +79,6 @@
 		document.getElementById("Annee").value = document.getElementById("s_annee_"+ev.target.id.split('_')[2]).innerHTML
 		document.getElementById("Prix").value = document.getElementById("s_prix_"+ev.target.id.split('_')[2]).innerHTML
 		document.getElementById("Description").value = document.getElementById("s_description_"+ev.target.id.split('_')[2]).innerHTML
-
 	}
 
 </script>

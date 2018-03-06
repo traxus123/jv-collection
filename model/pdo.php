@@ -2,17 +2,12 @@
 
 include_once('./inc.error.php');
 
-$bdd_host = 'localhost';
-$bdd_dbname = 'jv';
-$bdd_user = 'root';
-$bdd_pwd = 'root';
+$bdd_host = '';
+$bdd_dbname = '';
+$bdd_user = '';
+$bdd_pwd = '';
 
-if(false){
-	$bdd_host = 'rebprojesxroot.mysql.db';
-	$bdd_dbname = 'rebprojesxroot';
-	$bdd_user = 'rebprojesxroot';
-	$bdd_pwd = 'Th77re75';
-}
+
 
 try {
     $strConnection = 'mysql:host=' . $bdd_host . ';dbname=' . $bdd_dbname;
